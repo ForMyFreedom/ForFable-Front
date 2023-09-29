@@ -1,0 +1,38 @@
+.footer {
+  display: block;
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 50px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  width: calc(100% -50px);
+}
+
+
+.footer-group {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+}
+
+
+
+.footer-group-options {
+  display: grid;
+}
+
+.footer-group-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer .footer-group .footer-option {
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.footer .footer-group .footer-option:hover {
+  text-decoration: underline;
+}
