@@ -1,0 +1,102 @@
+.register {
+    display: flex;
+    color: black;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.register-card {
+    background-color: #fff;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    padding: 1rem;
+}
+
+.register-grid {
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
+    align-items: center;
+    display: grid;
+}
+
+.register-grid input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.register-grid input[type="text"],
+.register-grid input[type="email"],
+.register-grid input[type="password"],
+.register-grid input[type="date"],
+.register-grid input[type="submit"],
+.register-grid a[type="button"] {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+}
+
+.register-grid input[type="text"],
+.register-grid input[type="email"],
+.register-grid input[type="password"],
+.register-grid input[type="date"] {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.register-grid a[type="button"],
+.register-grid input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+.button-container {
+    display: flex;
+    width: 100%;
+    margin-top: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.button-container input[type="submit"] {
+    width: auto;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+}
+
+.button-container input[type="submit"]:hover {
+    background-color: #0069d9;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+}
+
+.image-portrait--register {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #000000;
+}
+
+.image-portrait--register img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-portrait--register:hover {
+    cursor: pointer;
+    opacity: 60%;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

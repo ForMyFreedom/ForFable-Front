@@ -1,0 +1,191 @@
+.user-card {
+  display: flex;
+  color: black;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-name-group{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.change-name-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.logout-button {
+  background-color: black;
+}
+
+.button-group--user-panel {
+  display: flex;
+  gap: 0.5rem;
+}
+
+
+.reset-button-style {
+  border-radius: 8px;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
+.input-icons {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.input-icons i {
+  position: absolute;
+}
+
+.icon {
+  margin-top: 0.3rem;
+  margin-left: -2.1rem;
+  pointer-events: none;
+}
+
+.nickname{
+  align-self: flex-end;
+  font-style: italic;
+  margin-top: -0.8rem;
+  color: black;
+}
+
+.user-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 1.5rem;
+}
+
+.fa-crown {
+  color: #f1c40f;
+  font-size: 2rem;
+}
+
+.change-color-button {
+  background-color: black;
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
+  padding: 0.2rem 1rem;
+  align-self: center;
+}
+
+.change-color-button:hover {
+  background-color: black;
+}
+
+.rainbow_text_animated {
+  background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 12s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+.rainbow_text_animated:hover{
+  filter: brightness(1.5);
+}
+
+@keyframes rainbow_animation {
+  0%,100% {
+      background-position: 0 0;
+  }
+
+  50% {
+      background-position: 100% 0;
+  }
+}
+
+.be-premium-button{
+  align-self: center;
+}
+
+.allow-change-image:hover, .allow-change-image:active {
+  filter: brightness(0.8);
+}
+
+.user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-details {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.user-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.user-name-owner:hover {
+  cursor: pointer;
+}
+
+.user-items {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .user-card {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .user-image {
+      margin-right: 0;
+      margin-bottom: 1rem;
+  }
+
+  .user-details {
+      margin-left: 0;
+      align-items: center;
+      text-align: center;
+  }
+
+  .user-name-group {
+      display: block;
+  }
+
+  .user-name {
+      margin-top: -0.6rem;
+  }
+
+  .nickname{
+      align-self: center;
+      font-style: italic;
+      margin-top: -1rem;
+      margin-bottom: 1.5rem;
+  }
+
+  .change-color-button {
+    margin-top: -1rem;
+    align-self: center;
+  }
+
+  .change-name-modal {
+    margin-left: 0;
+    max-height: 5rem;
+  }
+}

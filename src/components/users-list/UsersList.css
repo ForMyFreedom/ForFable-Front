@@ -1,0 +1,59 @@
+.user-item--list{
+    padding: 2rem;
+}
+
+.user-list {
+    margin-top: 10rem;
+}
+
+.grid--user-list {
+    padding: 5rem;
+    padding-top: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.user-item--list h2 {
+    font-size: 1.5rem;
+}
+
+.user-item--list h3 {
+    font-size: 1rem;
+}
+
+.pagination-buttons--user-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.ellipsis-start {
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.pagination-buttons--user-list button {
+    background-color: #000000;
+}
+
+.page-active {
+    background-color: blue !important;
+}
+
+.user-item--list:hover{
+    display: block;
+    box-shadow: 0 0 12px rgba(70, 70, 240, 0.7) inset;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgba(255,255,255,1);
+}
+
+.image-portrait--user-list {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #000000;
+}

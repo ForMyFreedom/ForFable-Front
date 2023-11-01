@@ -1,7 +1,6 @@
 import './Footer.css'
 import { Link } from 'react-router-dom'
 
-// React Function that returns a Footer
 function Footer() {
   return (
     <footer className='footer'>

@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/for-fable-domain"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

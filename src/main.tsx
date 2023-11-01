@@ -1,25 +1,30 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Home from './Home.tsx'
-import Login from './pages/login/Login.tsx'
-import Register from './pages/register/Register.tsx'
 import './index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import ErrorPage from './pages/errorPage/ErrorPage.tsx'
-
+import ErrorPage from './pages/error404/ErrorPage.tsx'
+import LoginPage from './pages/login/Login.tsx'
+import RegisterPage from './pages/register/Register.tsx'
+import UserPage from './pages/user/User.tsx'
+import HomePage from './pages/home/Home.tsx';
+import { UserProvider } from './contexts/UserContext.tsx';
+import UsersListPage from './pages/user/UsersList.tsx'
+import HistoryPage from './pages/history/History.tsx'
 const router  = createBrowserRouter([
   {
-    path: '/', element: <Home/>, errorElement: <ErrorPage/>,
+    path: '/', element: <HomePage/>, errorElement: <ErrorPage/>,
     children: [
-      {path: '/login', element: <Login/>},
-      {path: '/register', element: <Register/>}, 
+      {path: '/', element: <HistoryPage/>},
+      {path: '/login', element: <LoginPage/>},
+      {path: '/register', element: <RegisterPage/>},
+      {path: '/user/:id', element: <UserPage/>},
+      {path: '/users', element: <UsersListPage/>},
     ]
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
 )

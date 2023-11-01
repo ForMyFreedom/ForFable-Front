@@ -1,0 +1,25 @@
+.separation {
+  margin-right: 2rem;
+}
+
+.group {
+    display: grid;
+}
+
+.hex-input {
+    margin-top: 0.5rem;
+    max-width: 9.5rem;
+    text-align: center;
+}
+
+
+.hex-input::before {
+    content: 'asd';
+}
+
+@media (max-width: 768px) {
+    .separation {
+        margin-right: 0;
+        margin-bottom: 2em;
+    }
+}

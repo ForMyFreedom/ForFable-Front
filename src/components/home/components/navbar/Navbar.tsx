@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './Navbar.css'
+import { UserWithToken } from '../../../../for-fable-domain';
 
-// React Function that returns the Navbar of my website
-function Navbar() {
+interface NavbarProps {
+  userData: UserWithToken | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ userData }) => {
     const [showOptions, setShowOptions] = useState(false);
 
     const toggleOptions = () => {
@@ -25,9 +29,12 @@ function Navbar() {
             </button>
             <div id='nav-options' className={`list-regular-options ${showOptions ? 'show' : 'hidden'}`}>
               <Link onClick={unset} className='regular-option' to="/search">Search</Link>
-              <Link onClick={unset} className='regular-option' to="/persons">Persons</Link>
+              <Link onClick={unset} className='regular-option' to="/users">Persons</Link>
+              {userData ?
+              <Link onClick={unset} className='regular-option' to={`/user/${userData?.user.id}`}>User</Link>
+              :
               <Link onClick={unset} className='regular-option' to="/login">Login</Link>
-              <Link onClick={unset} className='regular-option' to="/user">User</Link>
+              }
             </div>
           </div>
         </nav>

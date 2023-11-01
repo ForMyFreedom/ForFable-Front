@@ -5,20 +5,35 @@
   padding: 50px;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 14px;
-  width: calc(100% -50px);
+  width: 100%;
+  box-sizing: border-box;
 }
-
 
 .footer-group {
   display: inline-block;
-  width: 20%;
-  vertical-align: top;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
+@media (min-width: 768px) {
+  .footer-group {
+    width: 25%;
+    margin-bottom: 0;
+  }
+}
 
+@media (min-width: 992px) {
+  .footer-group {
+    width: 20%;
+  }
+}
 
 .footer-group-options {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-gap: 10px;
 }
 
 .footer-group-title {

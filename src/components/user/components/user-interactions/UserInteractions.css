@@ -1,0 +1,11 @@
+.user-interaction-card {
+  display: flex;
+  color: black;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  min-height: 30rem;
+  align-items: start;
+}
