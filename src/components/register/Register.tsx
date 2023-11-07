@@ -1,14 +1,14 @@
 import { UserContext } from '../../contexts/UserContext';
-import { UserInsert, UsersUsecase } from '../../for-fable-domain';
-import { LoginUsecase } from '../../for-fable-domain/usecases/LoginUsecase';
+import { UserInsert, UsersController, LoginController } from '@/ForFable-Domain';
 import './Register.css'
 import { useState, useContext, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { DateTime } from 'luxon';
 
 interface LoginProps {
-  userService: UsersUsecase
-  loginService: LoginUsecase
+  userService: UsersController
+  loginService: LoginController
 }
 
 const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
@@ -17,7 +17,7 @@ const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
 
   const [, setUser] = useContext(UserContext)
   const [registerUser, setRegisterUser] = useState<UserInsert>(
-    { name: '', email: '', imageUrl: window.env.APP_ICON, birthDate: '', password: '', repeatPassword: '' }
+    { name: '', email: '', imageUrl: window.env.APP_ICON, birthDate: DateTime.now(), password: '', repeatPassword: '' }
   )
   
   const register = async () => {
@@ -71,7 +71,7 @@ const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
           <div className="col">
             <label htmlFor="birthdate">Birthdate:</label>
             <input type="date" id="birthdate" name="birthdate"
-              onChange={(event)=>setRegisterUser({...registerUser, birthDate: event.target.value})} 
+              onChange={(event)=>setRegisterUser({...registerUser, birthDate: DateTime.fromISO(event.target.value)})} 
             />
           </div>
           <div className="col">

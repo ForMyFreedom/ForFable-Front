@@ -1,16 +1,9 @@
-.user-item--list{
-    padding: 2rem;
-}
-
-.user-list {
+.user-list-header {
     margin-top: 10rem;
 }
 
-.grid--user-list {
-    padding: 5rem;
-    padding-top: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.user-item--list{
+    padding: 2rem;
 }
 
 .user-item--list h2 {
@@ -21,25 +14,11 @@
     font-size: 1rem;
 }
 
-.pagination-buttons--user-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-}
-
-.ellipsis-start {
-    padding: 0.5rem;
-    font-size: 1rem;
-    font-weight: bolder;
-}
-
-.pagination-buttons--user-list button {
-    background-color: #000000;
-}
-
-.page-active {
-    background-color: blue !important;
+.grid--user-list {
+    padding: 5rem;
+    padding-top: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .user-item--list:hover{

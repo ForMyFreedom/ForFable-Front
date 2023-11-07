@@ -21,6 +21,6 @@ module.exports = {
         "varsIgnorePattern": "^_"
       }
     ],
-    "no-redeclare": ["error", { "builtinGlobals": true }]
+    "@typescript-eslint/no-namespace": "off",
   },
 }

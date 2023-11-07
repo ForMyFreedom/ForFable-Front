@@ -1,4 +1,4 @@
-import { ApiResponse, GenericResponse, Pagination, RestartPasswordInsert, UserEntity, UserInsert, UsersController } from "../../ForFable-Domain";
+import { ApiResponse, EmailSended, GenericResponse, Pagination, PromptEntityWithWrite, ProposalEntityWithWrite, RestartPasswordInsert, UserEntity, UserInsert, UsersController } from "../../ForFable-Domain";
 import { requestApi } from "./_Requester";
 
 export class UserServices implements UsersController {
@@ -30,11 +30,15 @@ export class UserServices implements UsersController {
         return await requestApi(`/user/verify-email/${token}`, 'GET', undefined, true)
     }
 
-    async requestPasswordChange(user: UserEntity|undefined): Promise<ApiResponse<boolean>> {
+    async requestPasswordChange(user: UserEntity|undefined):  Promise<ApiResponse<EmailSended>> {
         return await requestApi(`/user/request-password-change`, 'POST', user, true)
     }
 
     async restartPassword(token: string|undefined, body: RestartPasswordInsert): Promise<GenericResponse> {
         return await requestApi(`/user/restart-password/${token}`, 'POST', body, true)
+    }
+
+    async indexWritesByAuthor(authorId: number, page: number = 1, limit: number = 3): Promise<Pagination<PromptEntityWithWrite | ProposalEntityWithWrite>> {
+        return await requestApi(`/user/${authorId}/writes?page=${page}&limit=${limit}`, 'GET', undefined, false)
     }
 }

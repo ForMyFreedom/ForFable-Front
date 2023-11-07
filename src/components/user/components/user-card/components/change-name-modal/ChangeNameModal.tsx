@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './ChangeNameModal.css';
-import { UserEntity } from '../../../../../../for-fable-domain';
+import { UserEntity } from '@/ForFable-Domain';
 import { ReactDuo } from '../../../../../../utils/react';
 import { toast } from 'react-toastify';
 
@@ -28,7 +28,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ isName, userDuo, moda
             return;
         } else {
             toast.success('Nome trocado com sucesso')
-            const result = isName ? {...user, name: newName} : {...user, nickname: newName }
+            const result: UserEntity = isName ? {...user, name: newName} : {...user, nickname: newName }
             setUser(result);
             setIsNameModalOpen(false);
         }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './Navbar.css'
-import { UserWithToken } from '../../../../for-fable-domain';
+import { UserWithToken } from 'ForFable-Domain';
 
 interface NavbarProps {
   userData: UserWithToken | null;

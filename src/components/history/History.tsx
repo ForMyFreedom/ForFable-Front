@@ -1,25 +1,33 @@
-import { GenresController, PromptsController } from '../../../ForFable-Domain';
+import { useEffect, useState } from 'react';
+import { GenresController, Pagination, PromptEntity, PromptsController } from '../../../ForFable-Domain';
 import './History.css';
-import { Link } from 'react-router-dom';
 
 interface HistoryProps {
   genresServices: GenresController
   promptServices: PromptsController
 }
 
-const History: React.FC<HistoryProps> = () => {
+const History: React.FC<HistoryProps> = ({promptServices}) => {
+  const [prompts, setPrompts] = useState<Pagination<PromptEntity>['data']>()
+
+  useEffect(() => {
+    Promise.all([promptServices.index()]).then(([prompts]) => {
+      console.log(prompts)
+      setPrompts(prompts.data)
+    })
+  }, [promptServices])
+
   return (
-    <div className="login">
-      <div className="login-card">
-        <div className="login-form">
-            <label htmlFor="username">Username:</label><br/>
-            <label htmlFor="password">Password:</label><br/>
-            <div className="button-container">
-              <Link className='forgot-password' type='button' to="/password-change">Esqueci minha senha</Link>
-              <Link type='button' to="/register">Registre-se</Link>
-            </div>
-        </div>
-      </div>
+    <div className="history">
+      <h1>Era uma vez...</h1>
+      <ul className='prompt-list'>
+        {prompts?.all?.map((prompt) => (
+          <li className="prompt-element" key={prompt.id}>
+            <h3>{prompt.title}</h3>
+            <p>{prompt.historyText}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

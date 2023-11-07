@@ -3,15 +3,15 @@ import UserCard from './components/user-card/UserCard';
 import UserInteractions from './components/user-interactions/UserInteractions';
 import { ReactDuo } from '../../utils/react';
 import { useEffect, useState } from 'react';
-import { UserEntity, UserWithToken, UsersUsecase } from '../../for-fable-domain';
+import { UserEntity, UserWithToken, UsersController } from '@/ForFable-Domain';
 
 interface UserProps {
   userDuo: ReactDuo<UserWithToken|undefined>
   searchUserId: number
-  userService: UsersUsecase
+  userService: UsersController
 }
 
-const User: React.FC<UserProps> = ({userDuo, searchUserId, userService}) => {
+const User: React.FC<UserProps> = ({userDuo, searchUserId, userService, }) => {
   const [userData] = userDuo
   const searchUserDuo = useState<UserEntity|null>()
   const [searchUser, setSearchUser] = searchUserDuo
@@ -34,7 +34,7 @@ const User: React.FC<UserProps> = ({userDuo, searchUserId, userService}) => {
   return (
     <div className='block'>
       <UserCard userDuo={searchUserDuo as ReactDuo<UserEntity>} isUser={isUser}/>
-      <UserInteractions user={searchUser} />
+      <UserInteractions user={searchUser} userService={userService} />
     </div>
   );
 };

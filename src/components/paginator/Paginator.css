@@ -1,0 +1,21 @@
+
+.pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.ellipsis-start {
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.pagination-buttons--user-list button {
+    background-color: #000000;
+}
+
+.page-active {
+    background-color: blue !important;
+}

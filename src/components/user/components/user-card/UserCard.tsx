@@ -3,17 +3,18 @@ import './UserCard.css';
 import ColorPickers from './components/color-pickers/ColorPickers';
 import ChangeNameModal from './components/change-name-modal/ChangeNameModal';
 import { ReactDuo } from '../../../../utils/react';
-import { UserEntity } from '../../../../for-fable-domain';
+import { UserEntity, UsersController } from '@/ForFable-Domain';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../../contexts/UserContext';
 
 
 interface UserCardProps {
+  userService: UsersController
   userDuo: ReactDuo<UserEntity>
   isUser: boolean;
 }
 
-const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser }) => {
+const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => {
   const navigate = useNavigate()
   const [user, setUser] = userDuo
   const [,setUserContext] = useContext(UserContext)
@@ -23,15 +24,15 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser }) => {
   const [isNameModalOpen, setIsNameModalOpen] = nameModalOpenDuo
   const [isNickNameModalOpen, setIsNickNameModalOpen] = nickNameModalOpenDuo
 
-  const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
+    if (file) { // @ DON'T SAVE IN BASE 64!!! FIND ANOTHER WAY
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
+      reader.onload = async () => {
         const imageUrl = reader.result as string;
         setUser({...user, imageUrl: imageUrl})
-        // @make request to update (it is important to create an new route to not send the base64)
+        await userService.update(user.id, { imageUrl: imageUrl })
       };
     }
   };
@@ -55,10 +56,10 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser }) => {
   const secondaryColorData = useState(user.secondaryColorHex);
   const [showColorPickers, setShowColorPickers] = useState(false);
 
-  const regulateColorPicker = () => {
+  const regulateColorPicker = async () => {
     if (showColorPickers) {
-      console.log('changing colors!');
-      // @make request of update colors
+      const updateColorBody = { primaryColorHex: primaryColorData[0], secondaryColorHex: secondaryColorData[0] }
+      await userService.update(user.id, updateColorBody)
     }
     setShowColorPickers(!showColorPickers);
   };
@@ -137,10 +138,10 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser }) => {
           ''
         )}
         <div className="user-items">
-          <b>Birth Date:</b> {(new Date(user.birthDate)).toLocaleDateString('en-GB')}
+          <b>Birth Date:</b> {(new Date(String(user.birthDate))).toLocaleDateString('en-GB')}
         </div>
         <div className="user-items">
-          <b>Register Date:</b> {(new Date(user.createdAt)).toLocaleDateString('en-GB')}
+          <b>Register Date:</b> {(new Date(String(user.createdAt))).toLocaleDateString('en-GB')}
         </div>
         <div className='button-group--user-panel'>
           {isUser && !user.isPremium ? (

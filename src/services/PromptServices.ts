@@ -25,4 +25,8 @@ export class PromptServices implements PromptsController {
   async appropriateDailyPrompt(promptId: PromptEntity['id'], body: GainControlOverDailyPromptInsert): Promise<ApiResponse<PromptEntity>> {
     return await requestApi(`/prompt/${promptId}/gain-control`, 'POST', body, true)
   }
+
+  async indexByAuthor(authorId: number, page?: number | undefined, limit?: number | undefined): Promise<Pagination<PromptEntity>> {
+    return await requestApi(`/prompt/author/${authorId}?page=${page}&limit=${limit}`, 'GET', undefined, false)
+  }
 }

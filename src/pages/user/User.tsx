@@ -2,7 +2,7 @@ import { useContext } from "react";
 import User from "../../components/user/User";
 import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
-import { UserWithToken } from "../../for-fable-domain";
+import { UserWithToken } from '@/ForFable-Domain';
 import { ReactDuo } from "../../utils/react";
 import { UserServices } from "../../services/UserServices";
 
