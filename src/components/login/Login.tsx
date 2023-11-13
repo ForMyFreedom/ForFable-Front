@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { toast } from 'react-toastify';
+import { LanguageContext } from '../../contexts/LanguageContext';
 
 interface LoginProps {
   loginService: LoginUsecase
@@ -14,6 +15,7 @@ const Login: React.FC<LoginProps> = ({ loginService }) => {
   const [password, setPassword] = useState('');
   const [_user, setUser] = useContext(UserContext)
   const nav = useNavigate()
+  const [lang] = useContext(LanguageContext)
 
   const tryLogin = async () => {
     const response = await loginService.loginByCredential(username, password)
@@ -22,7 +24,7 @@ const Login: React.FC<LoginProps> = ({ loginService }) => {
       localStorage.setItem('user', JSON.stringify(response.data))
       nav('/')
     } else{
-      toast.error('Usuário ou senha incorretos')
+      toast.error(lang.UserOrPasswordIncorrect)
     }
   }
 
@@ -38,14 +40,14 @@ const Login: React.FC<LoginProps> = ({ loginService }) => {
     <div className="login">
       <div className="login-card">
         <div className="login-form">
-            <label htmlFor="username">Username:</label><br/>
+            <label htmlFor="username">{lang.Username}:</label><br/>
             <input type="text" id="username" name="username" value={username} onChange={handleUsernameChange} /><br/>
-            <label htmlFor="password">Password:</label><br/>
+            <label htmlFor="password">{lang.Password}:</label><br/>
             <input type="password" id="password" name="password" value={password} onChange={handlePasswordChange} /><br/>
-            <input type="submit" value="Entrar" onClick={tryLogin} />
+            <input type="submit" value={lang.Enter} onClick={tryLogin} />
             <div className="button-container">
-              <Link className='forgot-password' type='button' to="/password-change">Esqueci minha senha</Link>
-              <Link type='button' to="/register">Registre-se</Link>
+              <Link className='forgot-password' type='button' to="/password-change">{lang.ForgotMyPassword}</Link>
+              <Link type='button' to="/register">{lang.Register}</Link>
             </div>
         </div>
       </div>

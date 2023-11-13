@@ -6,11 +6,30 @@ import Footer from './components/footer/Footer';
 import { UserContext } from '../../contexts/UserContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConstantsContext } from '../../../src/contexts/ConstantsContext';
+import { useEffect } from 'react';
+import { ConstantsController } from '../../../ForFable-Domain';
 
-interface NavbarProps { }
+interface NavbarProps {
+  constantsService : ConstantsController
+}
 
-const Home: React.FC<NavbarProps> = () => {
-  const [userData, _setUserData] = useContext(UserContext)
+const Home: React.FC<NavbarProps> = ({ constantsService }) => {
+  const [userData,] = useContext(UserContext)
+  const [, setConstants] = useContext(ConstantsContext)
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await constantsService.show()
+      if(response.data){
+        setConstants(response.data)
+      }
+    }
+    
+    fetchUserData()
+  }, [setConstants, constantsService])
+
+
 
   return (
     <div className='App'>

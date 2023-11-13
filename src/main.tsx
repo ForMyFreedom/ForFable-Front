@@ -10,6 +10,9 @@ import HomePage from './pages/home/Home.tsx';
 import { UserProvider } from './contexts/UserContext.tsx';
 import UsersListPage from './pages/user/UsersList.tsx'
 import HistoryPage from './pages/history/History.tsx'
+import SucessfullyRegisteredPage from './pages/sucessfullyRegisteredPage/SucessfullyRegisteredPage.tsx';
+import { ContantsProvider } from './contexts/ConstantsContext.tsx'
+import { LanguageProvider } from './contexts/LanguageContext.tsx'
 const router  = createBrowserRouter([
   {
     path: '/', element: <HomePage/>, errorElement: <ErrorPage/>,
@@ -19,12 +22,17 @@ const router  = createBrowserRouter([
       {path: '/register', element: <RegisterPage/>},
       {path: '/user/:id', element: <UserPage/>},
       {path: '/users', element: <UsersListPage/>},
+      {path: '/sucessfully-registered', element: <SucessfullyRegisteredPage/>}
     ]
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <UserProvider>
-      <RouterProvider router={router} />
-    </UserProvider>
+  <LanguageProvider>
+    <ContantsProvider>
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
+    </ContantsProvider>
+  </LanguageProvider>
 )

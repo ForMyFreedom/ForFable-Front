@@ -39,6 +39,31 @@
   margin-left: 1.5rem;
 }
 
+.language-selector--navbar {
+  display: inline;
+  margin-left: 1.5rem;
+}
+
+.modal-container--navbar {
+  margin-left: 3rem;
+  display: inline;
+}
+
+.language-modal--navbar{
+  background-color: rgb(39, 53, 103);
+  display: inline-flex;
+  flex-direction: column;
+  list-style-type: none;
+  position: fixed;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
+.language-modal--navbar div{
+  display: inline;
+  border: 1px solid #ccc;
+}
+
 @media (max-width: 768px) {
   .for-fable-icon {
     width: 3rem;

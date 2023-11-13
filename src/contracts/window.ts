@@ -5,7 +5,7 @@ declare global {
         env: {
             API_URL: string;
             APP_ICON: string;
-            TO_IGNORE_USER_ID: string;
+            MAX_IMAGE_SIZE_MB: number;
         };
     }
 }

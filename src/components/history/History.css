@@ -17,9 +17,17 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     list-style: none;
-    min-width: 80%
+    width: 80%;
+    cursor: pointer;
 }
 
 .prompt-element:hover {
     box-shadow: 0 0 5px #ccc;
+}
+
+
+@media (max-width: 768px) {
+    .prompt-element {
+        width: 100%;
+    }
 }

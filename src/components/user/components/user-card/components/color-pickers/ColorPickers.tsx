@@ -1,6 +1,6 @@
 import { HexColorPicker } from 'react-colorful';
 import './ColorPickers.css'
-import { ReactDuo } from '@/src/utils/react';
+import { ReactDuo } from '../../../../../../../src/utils/react';
 
 
 interface ColorPickersProps {
