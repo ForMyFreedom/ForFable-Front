@@ -1,17 +1,20 @@
 
-import { Pagination } from '@/ForFable-Domain';
-import { useEffect, useState } from 'react';
+import { LanguageContext } from '../../contexts/LanguageContext';
+import { Pagination } from '../../../ForFable-Domain';
+import { useEffect, useState, useContext } from 'react';
 
 type PaginatorProps<T extends object> = {
   indexFunction: (page: number) => Promise<Pagination<T>>
   renderAll: (data: Pagination<T>['data']|undefined) => JSX.Element
+  noDataMessage: string
 }
 
 const MAX_BUTTONS = 4
 
-function Paginator<T extends object>({ indexFunction, renderAll }: PaginatorProps<T>) {
+function Paginator<T extends object>({ indexFunction, renderAll, noDataMessage }: PaginatorProps<T>) {
     const [currentPage, setCurrentPage] = useState(1);
     const [allData, setAllData] = useState<Pagination<T>['data']>()
+    const [lang] = useContext(LanguageContext)
 
     useEffect(() => {
         const loadUser = async () => {
@@ -29,7 +32,15 @@ function Paginator<T extends object>({ indexFunction, renderAll }: PaginatorProp
         setCurrentPage(page);
     };
 
-    if(!allData) { return <div> Carregando... </div> }
+    if(!allData) { return <div> {lang.Loading}... </div> }
+
+    if(allData.all.length==0) {
+        return (
+            <div>
+                <h1>{noDataMessage}</h1>
+            </div>
+        )
+    }
 
     const renderPaginationButtons = () => {
         const buttons = [];

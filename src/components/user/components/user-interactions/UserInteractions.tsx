@@ -1,16 +1,20 @@
-import { PromptEntityWithWrite, ProposalEntityWithWrite, UserEntity, UsersController } from '@/ForFable-Domain';
+import { PromptEntityWithWrite, ProposalEntityWithWrite, UsersController } from '../../../../../ForFable-Domain';
 import './UserInteractions.css';
 import { DateTime } from 'luxon';
+import { useContext } from 'react'
 import Paginator from '../../../../components/paginator/Paginator';
+import { LanguageContext } from '../../../../contexts/LanguageContext';
 
 interface UserInteractionsProps {
-  user: UserEntity;
+  userId: number;
   userService: UsersController
 }
 
-const UserInteractions: React.FC<UserInteractionsProps> = ({ user, userService }) => {
+const UserInteractions: React.FC<UserInteractionsProps> = ({ userId, userService }) => {
+  const [lang] = useContext(LanguageContext)
+
   const handleIndexFunction = async (page: number) => {
-    return await userService.indexWritesByAuthor(user.id, page)
+    return await userService.indexWritesByAuthor(userId, page)
   }
 
   const handleRedirect = (isPrompt: boolean, id: number) => {
@@ -24,9 +28,10 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ user, userService }
   return (
     <div className="user-interaction-card">
       <Paginator<(ProposalEntityWithWrite | PromptEntityWithWrite)>
+        noDataMessage={lang.NoInteractionsYet}
         indexFunction={async (page: number) => { return await handleIndexFunction(page) }}
         renderAll={(interactions) => {
-          if(!interactions) { return <div> Carregando... </div> }
+          if(!interactions) { return <div> {lang.Loading}... </div> }
           return <>{
             interactions.all.map((interaction) => {
             const isPrompt = ! ('promptId' in interaction && interaction?.promptId)
@@ -34,14 +39,16 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ user, userService }
               <div onClick={()=>handleRedirect(isPrompt, interaction.id)} className='interaction' key={interaction.id}>
                 <div className='minimum-space'>
                   {isPrompt ?
-                    <h3>{`Prompt '${'title' in interaction && interaction?.title || ''}'`}</h3>
+                    <h3>{`${lang.Prompt} '${'title' in interaction && interaction?.title || ''}'`}</h3>
                     :
-                    <h3>{`Proposta em Prompt '${'promptId' in interaction && interaction?.promptId || ''}'`}</h3>
+                    <h3>{`${lang.ProposalInPrompt} '${'promptId' in interaction && interaction?.promptId || ''}'`}</h3>
                   }
                   <div className='interaction-info'>
-                    <p>{`Popularidade: ${interaction.popularity*10}`}</p>
+                    <p>{`${lang.Popularity}: ${interaction.popularity*10}`}</p>
                     <p>{DateTime.fromISO(interaction.write.createdAt.toString()).toLocaleString()}</p>
                   </div>
+                </div>
+                <div className='write-div'>
                   {isPrompt ?
                     <i className='write-text'>{interaction.write.text}</i>
                     :
@@ -49,15 +56,15 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ user, userService }
                   }
                 </div>
                 <div className='observations--user-interaction'>
-                  {interaction.write.edited && <i>Editado</i>}
+                  {interaction.write.edited && <i>{lang.Edited}</i>}
                   {'concluded' in interaction && interaction.concluded &&
-                    <i>Concluído</i>
+                    <i>{lang.Concluded}</i>
                   }
                   {'isDaily' in interaction && interaction.isDaily &&
-                    <i>Diário Apropriado</i>
+                    <i>{lang.DailyAppropriated}</i>
                   }
                   {'definitive' in interaction && interaction.definitive &&
-                    <i>Definitivo</i>
+                    <i>{lang.Definitive}</i>
                   }
                 </div>
               </div>

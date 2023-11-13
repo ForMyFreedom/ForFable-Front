@@ -1,4 +1,4 @@
-import { ApiResponse, ConstantEntity, ConstantsController } from "@/ForFable-Domain";
+import { ApiResponse, ConstantEntity, ConstantsController } from "../../ForFable-Domain";
 import { requestApi } from "./_Requester";
 
 export class ConstantsServices implements ConstantsController {

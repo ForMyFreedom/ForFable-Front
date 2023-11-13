@@ -2,12 +2,14 @@ import { ApiResponse, ExceptionContract } from "../../ForFable-Domain"
 
 type Method = 'GET'|'POST'|'PUT'|'DELETE'|'PATCH'
 
-export async function requestApi<T>(url: string, method: Method, body?: object, withToken: boolean = false): Promise<ApiResponse<T>> {
+export async function requestApi<T>(url: string, method: Method, body?: object, withToken: boolean = false, isMultiPart: boolean = false): Promise<ApiResponse<T>> {
     try {
         const BASE_API = window.env.API_URL
 
-        const headers: HeadersInit = {
-            'Content-Type': 'application/json'
+        const headers: HeadersInit = {}
+
+        if (!isMultiPart) {
+            headers['Content-Type'] = 'application/json'
         }
 
         if(withToken) {
@@ -15,11 +17,10 @@ export async function requestApi<T>(url: string, method: Method, body?: object, 
             headers['Authorization'] = `Bearer ${token}`
         }
 
-        const response = await fetch(BASE_API + url, {
-            method: method,
-            headers: headers,
-            body: JSON.stringify(body),
-        });
+        const init: RequestInit = { method: method, headers: headers,  }
+        if(body) { init.body = isMultiPart ? body as BodyInit : JSON.stringify(body) }
+
+        const response = await fetch(BASE_API + url, init);
 
         const res = await response.json() as ApiResponse<T>;
 

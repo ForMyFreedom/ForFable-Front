@@ -35,4 +35,5 @@
     border-radius: 50%;
     overflow: hidden;
     border: 1px solid #000000;
+    object-fit:contain;
 }

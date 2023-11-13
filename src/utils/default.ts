@@ -1,0 +1,1 @@
+export const NO_USER_IMAGE = '/assets/images/user.png'

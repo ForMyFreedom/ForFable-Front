@@ -3,18 +3,26 @@ import './UserCard.css';
 import ColorPickers from './components/color-pickers/ColorPickers';
 import ChangeNameModal from './components/change-name-modal/ChangeNameModal';
 import { ReactDuo } from '../../../../utils/react';
-import { UserEntity, UsersController } from '@/ForFable-Domain';
+import { ImagesController, UserEntity, UsersController } from '../../../../../ForFable-Domain';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../../contexts/UserContext';
+import { toast } from 'react-toastify';
+import { CompressOrNot } from '../../../../../src/services/ImageUploaderService';
+import { ConstantsContext } from '../../../../../src/contexts/ConstantsContext';
+import { NO_USER_IMAGE } from '../../../../../src/utils/default';
+import LoadingSpinner from '../../../../../src/components/utils/LoadingSpinner';
+import { LanguageContext } from '../../../../contexts/LanguageContext';
 
 
 interface UserCardProps {
   userService: UsersController
+  imageService: ImagesController
   userDuo: ReactDuo<UserEntity>
   isUser: boolean;
 }
 
-const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => {
+
+const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService, imageService }) => {
   const navigate = useNavigate()
   const [user, setUser] = userDuo
   const [,setUserContext] = useContext(UserContext)
@@ -23,18 +31,27 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => 
   const nickNameModalOpenDuo = useState(false);
   const [isNameModalOpen, setIsNameModalOpen] = nameModalOpenDuo
   const [isNickNameModalOpen, setIsNickNameModalOpen] = nickNameModalOpenDuo
+  const [constants] = useContext(ConstantsContext)
+  const [isImageLoading, setIsImageLoading] = useState(false); // add isLoading state variable
+
+  const [lang] = useContext(LanguageContext)
+
 
   const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsImageLoading(true)
     const file = event.target.files?.[0];
-    if (file) { // @ DON'T SAVE IN BASE 64!!! FIND ANOTHER WAY
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = async () => {
-        const imageUrl = reader.result as string;
+    if (file) {
+      const response = await imageService.updateUserImage(await CompressOrNot(
+        user, file, constants?.maxImageBythesByNonPremium || 2000
+      ))
+      const imageUrl = response.data
+      if(imageUrl){
         setUser({...user, imageUrl: imageUrl})
-        await userService.update(user.id, { imageUrl: imageUrl })
-      };
+      } else {
+        toast.error(lang.ErrorWhenSavingImage)
+      }
     }
+    setIsImageLoading(false)
   };
 
   const openChangeNickNameModal = () => {
@@ -58,8 +75,10 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => 
 
   const regulateColorPicker = async () => {
     if (showColorPickers) {
-      const updateColorBody = { primaryColorHex: primaryColorData[0], secondaryColorHex: secondaryColorData[0] }
-      await userService.update(user.id, updateColorBody)
+      if(primaryColorData[0] !== user.primaryColorHex || secondaryColorData[0] !== user.secondaryColorHex){
+        const updateColorBody = { primaryColorHex: primaryColorData[0], secondaryColorHex: secondaryColorData[0] }
+        await userService.update(user.id, updateColorBody)
+      }
     }
     setShowColorPickers(!showColorPickers);
   };
@@ -83,6 +102,7 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => 
   return (
     <div className="user-card">
       <div className={`user-image ${isUser ? 'allow-change-image' : ''}`}>
+        <LoadingSpinner loading={isImageLoading} color={'#00000050'} />
         <input
           type="file"
           accept="image/*"
@@ -91,9 +111,14 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => 
           onChange={handleFileInputChange}
         />
         <img
-          src={user.imageUrl}
+          src={user.imageUrl || NO_USER_IMAGE}
           alt="User"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = NO_USER_IMAGE
+          }}
           onClick={() => isUser && fileInputRef.current?.click()}
+          style={isImageLoading?{position: 'relative', top:'-100%', opacity: '50%'}:{}}
         />
       </div>
       <div className="user-details">
@@ -112,6 +137,9 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => 
           ) : (
             <div className={`user-name ${isUser ? 'user-name-owner' : ''}`} onClick={openChangeNameModal}>{user.name}</div>
           )}
+          {!user.emailVerified &&
+            <i> {lang.NotVerified}</i>
+          }
         </div>
         {user.isPremium ? (
           <>
@@ -128,35 +156,35 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService }) => 
           ''
         )}
         <div className="user-items">
-          <b>Score:</b> {user.score}
+          <b>{lang.Score}:</b> {user.score}
         </div>
         {isUser ? (
           <div className="user-items">
-            <b>Email:</b> {user.email}
+            <b>{lang.Email}:</b> {user.email}
           </div>
         ) : (
           ''
         )}
         <div className="user-items">
-          <b>Birth Date:</b> {(new Date(String(user.birthDate))).toLocaleDateString('en-GB')}
+          <b>{lang.Birthdate}:</b> {(new Date(String(user.birthDate))).toLocaleDateString(lang.LOCALE_DATE_STRING)}
         </div>
         <div className="user-items">
-          <b>Register Date:</b> {(new Date(String(user.createdAt))).toLocaleDateString('en-GB')}
+          <b>{lang.RegisterDate}:</b> {(new Date(String(user.createdAt))).toLocaleDateString(lang.LOCALE_DATE_STRING)}
         </div>
         <div className='button-group--user-panel'>
           {isUser && !user.isPremium ? (
-            <button className="be-premium-button">Be Premium!</button>
+            <button className="be-premium-button">{lang.BePremium}</button>
           ) : (
             ''
           )}
           {isUser &&
-            <button onClick={logout} className="logout-button">Logout</button>
+            <button onClick={logout} className="logout-button">{lang.Logout}</button>
           }
         </div>
       </div>
       {showColorPickers ? <ColorPickers primaryColorData={primaryColorData} secondaryColorData={secondaryColorData} /> : ''}
-      <ChangeNameModal isName={true} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nameModalOpenDuo}/>
-      <ChangeNameModal isName={false} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nickNameModalOpenDuo}/>
+      <ChangeNameModal propKey='name' titleText={lang.ChangeName} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nameModalOpenDuo} userService={userService}/>
+      <ChangeNameModal propKey='nickname' titleText={lang.ChangeNickname} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nickNameModalOpenDuo} userService={userService}/>
     </div>
   );
 };

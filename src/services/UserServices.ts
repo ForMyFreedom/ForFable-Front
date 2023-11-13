@@ -1,4 +1,4 @@
-import { ApiResponse, EmailSended, GenericResponse, Pagination, PromptEntityWithWrite, ProposalEntityWithWrite, RestartPasswordInsert, UserEntity, UserInsert, UsersController } from "../../ForFable-Domain";
+import { ApiResponse, EmailSended, GenericResponse, Pagination, PromptEntityWithWrite, ProposalEntityWithWrite, RestartPasswordInsert, UserEntity, UserInsert, UsersController } from "../../ForFable-Domain"
 import { requestApi } from "./_Requester";
 
 export class UserServices implements UsersController {
@@ -19,7 +19,7 @@ export class UserServices implements UsersController {
     }
 
     async update(userId: UserEntity['id'], partialBody: Partial<UserInsert>): Promise<ApiResponse<UserEntity>> {
-        return await requestApi(`/user/${userId}`, 'PATCH', partialBody, true)
+        return await requestApi(`/user/${userId}`, 'PUT', partialBody, true)
     }
 
     async destroy(userId: UserEntity['id']): Promise<ApiResponse<UserEntity>> {
