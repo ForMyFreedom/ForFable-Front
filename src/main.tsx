@@ -6,6 +6,7 @@ import ErrorPage from './pages/error404/ErrorPage.tsx'
 import LoginPage from './pages/login/Login.tsx'
 import RegisterPage from './pages/register/Register.tsx'
 import UserPage from './pages/user/User.tsx'
+import ProposalPage from './pages/proposal/Proposal.tsx'
 import HomePage from './pages/home/Home.tsx';
 import { UserProvider } from './contexts/UserContext.tsx';
 import UsersListPage from './pages/user/UsersList.tsx'
@@ -21,6 +22,7 @@ const router  = createBrowserRouter([
       {path: '/login', element: <LoginPage/>},
       {path: '/register', element: <RegisterPage/>},
       {path: '/user/:id', element: <UserPage/>},
+      {path: '/proposal/:id', element: <ProposalPage/>},
       {path: '/users', element: <UsersListPage/>},
       {path: '/sucessfully-registered', element: <SucessfullyRegisteredPage/>}
     ]

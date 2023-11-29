@@ -45,4 +45,9 @@ export const en: LanguageContract = {
     SucessfullyRegistered: "Sucessfully registered",
     CheckYourEmailToVerifyAccount: "Check your email to verify account",
     NotVerified: "Not verified",
+    NoComments: "No Comments",
+    Comments: "Comments",
+    Like: "Like",
+    Dislike: "Dislike",
+    Denunciate: "Denunciate",
 }

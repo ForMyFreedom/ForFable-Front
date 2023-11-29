@@ -2,8 +2,10 @@ export interface LanguageContract {
     LANGUAGE_CODE: string;
     OnceUponATime: string;
     Username: string;
+    NoComments: string;
     Password: string;
     Enter: string;
+    Comments: string;
     ForgotMyPassword: string;
     Register: string;
     Search: string;
@@ -43,4 +45,7 @@ export interface LanguageContract {
     SucessfullyRegistered: string;
     CheckYourEmailToVerifyAccount: string;
     NotVerified: string;
+    Like: string;
+    Dislike: string;
+    Denunciate: string;
 }

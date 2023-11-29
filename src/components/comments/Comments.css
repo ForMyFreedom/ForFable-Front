@@ -1,0 +1,66 @@
+.comments h1 {
+    text-align: left;
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.comments {
+    margin-bottom: 5rem;
+}
+
+.data--comment {
+    margin-left: 1rem;
+}
+
+.commenter-name{
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0;
+}
+
+.text--comment {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.actions--comment{
+    display: flex;
+    margin-left: 6rem;
+    gap: 2rem;
+    font-size: 1.2rem;
+}
+
+.actions--comment {
+    margin-top: 0rem;
+}
+
+.actions--comment p {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    margin-top: 0 !important;
+}
+
+.actions--comment div {
+    align-items: baseline !important;
+}
+
+.comment-element {
+    text-align: left;
+    list-style: none;
+    display: block;
+}
+
+.nomb{
+    margin-bottom: 0 !important;
+}
+
+.info--comment{
+    display: flex;
+}
+
+.answer-element{
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+

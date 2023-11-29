@@ -1,0 +1,73 @@
+.page--write-details{
+  display: flex;
+  padding-left: 5rem;
+  padding-top: 3rem;
+  flex-direction: column;
+}
+
+.return-icon--write-details {
+  font-size: 4rem;
+  margin-top: 3rem;
+  cursor: pointer;
+}
+
+.denunciate {
+  font-size: 1rem !important;
+  align-self:flex-end;
+  cursor: pointer;
+  user-select: none;
+}
+
+.details--write-details{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  width: 70%;
+  align-items: flex-start;
+}
+
+.info--write-details{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.author-name--write-details {
+  font-size: 1.5rem;
+  align-self: baseline;
+  cursor: pointer;
+}
+
+.popularity-name--write-details {
+  font-size: 1.2rem;
+  align-self: baseline;
+}
+
+.text--write-details{
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  padding-top: 0;
+  text-align: start;
+}
+
+.reactions--write-details {
+  display: flex;
+  align-self: auto;
+  gap: 3rem;
+  align-self: baseline;
+}
+
+.reactions--write-details div {
+  display: flex;
+  align-items: center;
+}
+
+.reactions--write-details i {
+  font-size: 2rem;
+}
+
+.reactions--write-details p {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
