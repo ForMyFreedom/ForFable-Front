@@ -6,12 +6,12 @@ export class LoginServices implements LoginController {
         const response = await requestApi('/login', 'POST',
             { identify: usename, password: password }
         )
-        if(response.data) {
+        if(response.state == 'Sucess') {
             const user = response.data as UserWithToken
             localStorage.setItem('user', JSON.stringify(user))
-            return {data: user}
+            return { state: 'Sucess', data: user}
         } else {
-            return { error: response.error }
+            return { state: 'Failure', error: response.error }
         }
     }
 }
