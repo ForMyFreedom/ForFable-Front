@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
-import { GenresController, Pagination, PromptEntity, PromptsController } from '../../../ForFable-Domain';
+import { useNavigate } from 'react-router-dom';
+import { GenresController, PaginationData, PromptEntity, PromptsController } from '../../../ForFable-Domain';
 import './History.css';
 import { LanguageContext } from '../../contexts/LanguageContext';
 
@@ -9,18 +10,20 @@ interface HistoryProps {
 }
 
 const History: React.FC<HistoryProps> = ({promptServices}) => {
-  const [prompts, setPrompts] = useState<Pagination<PromptEntity>['data']>()
+  const [prompts, setPrompts] = useState<PaginationData<PromptEntity>>()
   const [lang] = useContext(LanguageContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     Promise.all([promptServices.index()]).then(([prompts]) => {
-      console.log(prompts)
-      setPrompts(prompts.data)
+      if(prompts.state === 'Sucess') {
+        setPrompts(prompts.data)
+      }
     })
   }, [promptServices])
 
   function gotoPrompt(id: number){
-    window.location.href = `/prompt/${id}`
+    navigate(`/prompt/${id}`)
   }
 
   return (

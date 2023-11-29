@@ -44,9 +44,8 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService, image
       const response = await imageService.updateUserImage(await CompressOrNot(
         user, file, constants?.maxImageBythesByNonPremium || 2000
       ))
-      const imageUrl = response.data
-      if(imageUrl){
-        setUser({...user, imageUrl: imageUrl})
+      if(response.state=='Sucess'){
+        setUser({...user, imageUrl: response.data})
       } else {
         toast.error(lang.ErrorWhenSavingImage)
       }

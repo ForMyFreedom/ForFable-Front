@@ -19,11 +19,11 @@ const Login: React.FC<LoginProps> = ({ loginService }) => {
 
   const tryLogin = async () => {
     const response = await loginService.loginByCredential(username, password)
-    if(response.data){
+    if(response.state == 'Sucess'){
       setUser(response.data)
       localStorage.setItem('user', JSON.stringify(response.data))
       nav('/')
-    } else{
+    } else {
       toast.error(lang.UserOrPasswordIncorrect)
     }
   }

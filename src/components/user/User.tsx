@@ -24,7 +24,7 @@ const User: React.FC<UserProps> = ({userDuo, searchUserId, userService, imageSer
   useEffect(() => {
     const loadUser = async () => {
         const response = await userService.show(searchUserId)
-        if (response.data) {
+        if (response.state=='Sucess') {
             setSearchUser(response.data)
         }
     }

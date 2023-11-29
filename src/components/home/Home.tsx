@@ -21,14 +21,13 @@ const Home: React.FC<NavbarProps> = ({ constantsService }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await constantsService.show()
-      if(response.data){
+      if(response.state == 'Sucess'){
         setConstants(response.data)
       }
     }
     
     fetchUserData()
   }, [setConstants, constantsService])
-
 
 
   return (

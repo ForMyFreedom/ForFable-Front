@@ -23,15 +23,15 @@ const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
   
   const register = async () => {
     const response = await userService.storeUser(registerUser)
-    if (response.error && typeof response.error === 'object') {
+    if (response.state == 'Failure' && typeof response.error === 'object') {
       for (const key of Object.keys(response.error)) {
         toast.error(response.error[key as keyof typeof response.error][0], { className: 'capitalize' })
       }
     } else {
       toast.success(lang.UserCreatedSuccessfully)
-      if (response.data) {
+      if (response.state == 'Sucess') {
         const logged = await loginService.loginByCredential(registerUser.email, registerUser.password)
-        if(logged.data){
+        if(logged.state == 'Sucess'){
           setUser(logged.data)
           localStorage.setItem('user', JSON.stringify(logged.data))
         }
