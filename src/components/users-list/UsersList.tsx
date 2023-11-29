@@ -35,7 +35,7 @@ const UsersList: React.FC<UserProps> = ({ userService }) => {
                       <div onClick={() => gotoSelected(user.id)} className='user-item--list' key={index}>
                         <h2>{user.name}</h2>
                         <h3>{lang.Score}: {user.score}</h3>
-                        <img className='image-portrait--user-list' src={user.imageUrl || NO_USER_IMAGE}/>
+                        <img className='image-portrait' src={user.imageUrl || NO_USER_IMAGE}/>
                       </div>
                     )
                     }

@@ -28,12 +28,3 @@
     color: rgba(255,255,255,1);
 }
 
-.image-portrait--user-list {
-    width: 6rem;
-    height: 6rem;
-    margin-bottom: 1rem;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid #000000;
-    object-fit:contain;
-}

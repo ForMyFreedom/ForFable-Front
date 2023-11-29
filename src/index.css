@@ -58,6 +58,56 @@ button:focus-visible {
   box-shadow: none;
 }
 
+.image-portrait, .small-image-portrait {
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #000000;
+  object-fit:contain;
+  cursor: pointer;
+}
+
+.small-image-portrait {
+  width: 4rem;
+  height: 4rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.tooltip{
+  position: relative;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  width: clamp(10px, 4vw, 5vw);
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 0.6vw;
+  padding: 10px 10px 10px 10px;
+  
+  top: -40px;
+  left: -0.1vw;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
