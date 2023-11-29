@@ -21,8 +21,8 @@ const UsersList: React.FC<UserProps> = ({ userService }) => {
 
   return (
     <div>
-        <h1 className='user-list-header'>{lang.ListOfUsers}</h1>
         <Paginator<UserEntity>
+          title={<h1 className='user-list-header'>{lang.ListOfUsers}</h1>}
           noDataMessage=''
           indexFunction={async (page: number) => await userService.index(page)}
           renderAll={(userList) => (

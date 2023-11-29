@@ -28,6 +28,7 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ userId, userService
   return (
     <div className="user-interaction-card">
       <Paginator<(ProposalEntityWithWrite | PromptEntityWithWrite)>
+        title={<></>}
         noDataMessage={lang.NoInteractionsYet}
         indexFunction={async (page: number) => { return await handleIndexFunction(page) }}
         renderAll={(interactions) => {
