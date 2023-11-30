@@ -22,13 +22,10 @@ export async function requestApi<T>(url: string, method: Method, body?: object, 
 
         const res = await response.json() as ApiResponse<T>;
 
-        // @ If an auth errors comes, it is importnat to refresh the page and remove the user from localStorage
-        /*
-        if(res.error == 'Invalid Auth') {
+        if(res.state=='Failure' && res.error == 'Unauthenticated') {
             localStorage.removeItem('user')
             window.location.href = '/'
         }
-        */
 
         return res
     } catch (error) {

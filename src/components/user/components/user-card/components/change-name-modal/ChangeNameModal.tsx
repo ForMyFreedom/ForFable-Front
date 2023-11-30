@@ -29,7 +29,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ propKey, titleText, u
         const body = { [propKey]: newName }
         const response = await userService.update(user.id, body)
         if (response.state == 'Failure') {
-            toast.error(stringifyAppError(response.error))
+            toast.error(stringifyAppError(response))
             return;
         } else {
             toast.success(lang.NamedChangedSuccessfully)
