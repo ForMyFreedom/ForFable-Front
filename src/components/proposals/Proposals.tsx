@@ -22,7 +22,7 @@ const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactionsServi
         const loadUser = async () => {
             const request = await proposalService.getAuthor(Number(proposalId))
             if (request.state == 'Failure') {
-                toast.error(stringifyAppError(request.error))
+                toast.error(stringifyAppError(request))
             } else {
                 setProposalUser(request.data)
             }
@@ -30,7 +30,7 @@ const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactionsServi
         const loadProposal = async () => {
             const request = await proposalService.show(Number(proposalId))
             if (request.state == 'Failure') {
-                toast.error(stringifyAppError(request.error))
+                toast.error(stringifyAppError(request))
             } else {
                 request.data.currentHistoryText = 'Era uma vez' // @
                 setProposal(request.data)

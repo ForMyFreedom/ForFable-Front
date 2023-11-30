@@ -18,7 +18,7 @@ type Proposal = {type: 'Proposal', write: ProposalEntity}
 interface Props {
     user: UserEntity
     writeProp: Prompt|Proposal
-    write: WriteEntity // @
+    write: WriteEntity // Tirar?
     reactWritesService: ReactWritesController
     commentService: CommentsController
     exibitionText: ReactNode
@@ -33,7 +33,7 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, co
       const loadReactions = async () => {
           const request = await reactWritesService.show(Number(promposal.writeId))
           if (request.state == 'Failure') {
-              toast.error(stringifyAppError(request.error))
+              toast.error(stringifyAppError(request))
           } else {
             setReactionsResponse(request.data)
           }
@@ -83,13 +83,13 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, co
       response = await reactWritesService.destroy(Number(promposal.writeId))
     }
     if(response.state == 'Failure') {
-      toast.warning(stringifyAppError(response.error))
+      toast.warning(stringifyAppError(response))
     } else {
       const newResponse = await reactWritesService.show(Number(promposal.writeId))
       if(newResponse.state == 'Sucess') {
         setReactionsResponse(newResponse.data)
       } else {
-        toast.warning(stringifyAppError(newResponse.error))
+        toast.warning(stringifyAppError(newResponse))
       }
     }
   }

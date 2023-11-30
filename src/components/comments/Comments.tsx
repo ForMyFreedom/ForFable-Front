@@ -20,7 +20,7 @@ const Comments: React.FC<CommentsProps> = ({ writeId, commentService }) => {
           renderAll={(allComments) => {return (
             <ul className='comment-list'>
               {
-                allComments?.all?.map((comment) =>{
+                allComments?.all?.map((comment, index) =>{
                   const user = allComments.users.find((user) => user.id === comment.comment.authorId)
                   if(!user) {return <></>}
                   return (
@@ -28,6 +28,7 @@ const Comments: React.FC<CommentsProps> = ({ writeId, commentService }) => {
                       commentData={comment}
                       user={user}
                       allUsers={allComments.users}
+                      key={index}
                     />
                 )})
               }
