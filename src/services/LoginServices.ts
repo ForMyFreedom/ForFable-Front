@@ -3,13 +3,14 @@ import { requestApi } from "./_Requester";
 
 export class LoginServices implements LoginController {
     async loginByCredential(usename: string, password: string): Promise<ApiResponse<UserWithToken>>  {
-        const response = await requestApi('/login', 'POST',
+        const response = await requestApi<UserWithToken>('/login', 'POST',
             { identify: usename, password: password }
         )
         if(response.state == 'Sucess') {
-            const user = response.data as UserWithToken
+            const user = response.data
+            console.log(response)
             localStorage.setItem('user', JSON.stringify(user))
-            return { state: 'Sucess', data: user}
+            return { state: 'Sucess', message: 'SuccessfullyAuthenticated', data: user }
         } else {
             return { state: 'Failure', error: response.error }
         }
