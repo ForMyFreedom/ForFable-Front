@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ConstantsContext } from '../../../src/contexts/ConstantsContext';
 import { useEffect } from 'react';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../contexts/ServicesContext';
 
 interface NavbarProps {
 }

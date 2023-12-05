@@ -3,9 +3,9 @@ import './UsersList.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
 import { UserEntity } from '../../../ForFable-Domain';
-import { NO_USER_IMAGE } from '../../../src/utils/default';
 import { LanguageContext } from '../../contexts/LanguageContext';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../contexts/ServicesContext';
+import { NO_USER_IMAGE } from '../../utils/default';
 
 interface UserProps {
 }

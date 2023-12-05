@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PaginationData, PromptEntity } from '../../../ForFable-Domain';
 import './History.css';
 import { LanguageContext } from '../../contexts/LanguageContext';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../contexts/ServicesContext';
 
 interface HistoryProps {
 }

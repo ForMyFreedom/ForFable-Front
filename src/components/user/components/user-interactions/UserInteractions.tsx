@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import Paginator from '../../../../components/paginator/Paginator';
 import { LanguageContext } from '../../../../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../../../contexts/ServicesContext';
 
 interface UserInteractionsProps {
   userId: number;

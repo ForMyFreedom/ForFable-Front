@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import { ReactDuo } from "src/utils/react";
-import { LanguageContract } from "src/contracts/i18n/contract";
+import { ReactDuo } from "../utils/react";
+import { LanguageContract } from "../contracts/i18n/contract";
 import { en } from "../contracts/i18n/en";
 import { ALL_LANGUAGES_BY_CODE } from "../contracts/i18n/all-langs";
 

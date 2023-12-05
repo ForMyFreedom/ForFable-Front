@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { stringifyAppError } from "../../utils/error";
 import { useNavigate } from 'react-router-dom'
 import './Proposal.css'
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../contexts/ServicesContext';
 
 interface Props {
     proposalId: number

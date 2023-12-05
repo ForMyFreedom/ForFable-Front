@@ -12,7 +12,7 @@ import { ConstantsContext } from '../../../../../src/contexts/ConstantsContext';
 import { NO_USER_IMAGE } from '../../../../../src/utils/default';
 import LoadingSpinner from '../../../../../src/components/utils/LoadingSpinner';
 import { LanguageContext } from '../../../../contexts/LanguageContext';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../../../contexts/ServicesContext';
 
 
 interface UserCardProps {

@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
 import { UserWithToken } from "../../ForFable-Domain";
 import { ReactDuo } from "../utils/react";
 
@@ -13,6 +13,12 @@ export const UserProvider = ({ children }: {children: ReactNode}) => {
             ? JSON.parse(localUser)
             : null
     )
+
+    const [user,] =userDuo
+
+    useEffect(()=>{
+        localStorage.setItem('user', JSON.stringify(user))
+    }, [user])
 
     return (
         <UserContext.Provider value={userDuo}>

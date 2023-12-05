@@ -5,7 +5,7 @@ import { ReactDuo } from '../../../../../../utils/react';
 import { toast } from 'react-toastify';
 import { stringifyAppError } from '../../../../../../../src/utils/error';
 import { LanguageContext } from '../../../../../../contexts/LanguageContext';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../../../../../contexts/ServicesContext';
 
 interface ChangeNameModalProps extends React.HTMLAttributes<HTMLDivElement> {
     propKey: keyof UserEntity

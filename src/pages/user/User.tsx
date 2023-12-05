@@ -2,7 +2,7 @@ import { useContext } from "react";
 import User from "../../components/user/User";
 import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
-import { UserWithToken } from '../../../ForFable-Domain';
+import { UserEntity } from '../../../ForFable-Domain';
 import { ReactDuo } from "../../utils/react";
 
 export default function UserPage() {
@@ -14,7 +14,7 @@ export default function UserPage() {
 
     return (
         <User
-            userDuo={requestUserDuo as ReactDuo<UserWithToken|undefined>}
+            requestUserDuo={requestUserDuo as ReactDuo<UserEntity|null>}
             searchUserId={Number(id)}
         />
     )

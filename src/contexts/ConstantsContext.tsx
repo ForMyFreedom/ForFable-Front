@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { ConstantEntity } from "../../ForFable-Domain";
-import { ReactDuo } from "src/utils/react";
+import { ReactDuo } from "../utils/react";
 
 interface ContantsProviderProps {
   children: React.ReactNode;

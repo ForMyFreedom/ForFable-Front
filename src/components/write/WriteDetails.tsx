@@ -12,7 +12,7 @@ import { getColorForReactionIcon } from './components/definitions';
 import Complaint from './components/Complaint';
 import { UserContext } from '../../contexts/UserContext';
 import InsertComment from '../comments/InsertComment';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../contexts/ServicesContext';
 
 
 type Prompt = {type: 'Prompt', write: PromptEntity}

@@ -4,7 +4,7 @@ import './Comments.css';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import Paginator from '../paginator/Paginator';
 import SingleComment from './SingleComment';
-import { ServicesContext } from 'src/contexts/ServicesContext';
+import { ServicesContext } from '../../contexts/ServicesContext';
 
 interface CommentsProps {
   appUser: UserEntity|undefined
