@@ -1,24 +1,26 @@
 import { useState, useContext } from 'react';
 import './ChangeNameModal.css';
-import { UserEntity, UsersController } from '../../../../../../../ForFable-Domain';
+import { UserEntity } from '../../../../../../../ForFable-Domain';
 import { ReactDuo } from '../../../../../../utils/react';
 import { toast } from 'react-toastify';
 import { stringifyAppError } from '../../../../../../../src/utils/error';
 import { LanguageContext } from '../../../../../../contexts/LanguageContext';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface ChangeNameModalProps extends React.HTMLAttributes<HTMLDivElement> {
     propKey: keyof UserEntity
     titleText: string
     userDuo: ReactDuo<UserEntity>
     modalOpenDuo: ReactDuo<boolean>
-    userService: UsersController
 }
 
-const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ propKey, titleText, userDuo, modalOpenDuo, userService, ...rest }) => {
+const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ propKey, titleText, userDuo, modalOpenDuo, ...rest }) => {
     const [user, setUser] = userDuo
     const [newName, setNewName] = useState<string>(user[propKey] as string);
     const [isNameModalOpen, setIsNameModalOpen] = modalOpenDuo;
     const [lang] = useContext(LanguageContext)
+  const { UsersService } = useContext(ServicesContext)
+
 
     const handleNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNewName(event.target.value);
@@ -27,7 +29,7 @@ const ChangeNameModal: React.FC<ChangeNameModalProps> = ({ propKey, titleText, u
     const handleNameFormSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const body = { [propKey]: newName }
-        const response = await userService.update(user.id, body)
+        const response = await UsersService.update(user.id, body)
         if (response.state == 'Failure') {
             toast.error(stringifyAppError(response))
             return;

@@ -1,22 +1,24 @@
-import { PromptEntityWithWrite, ProposalEntityWithWrite, UsersController } from '../../../../../ForFable-Domain';
+import { PromptEntityWithWrite, ProposalEntityWithWrite } from '../../../../../ForFable-Domain';
 import './UserInteractions.css';
 import { DateTime } from 'luxon';
 import { useContext } from 'react'
 import Paginator from '../../../../components/paginator/Paginator';
 import { LanguageContext } from '../../../../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface UserInteractionsProps {
   userId: number;
-  userService: UsersController
 }
 
-const UserInteractions: React.FC<UserInteractionsProps> = ({ userId, userService }) => {
+const UserInteractions: React.FC<UserInteractionsProps> = ({ userId }) => {
   const [lang] = useContext(LanguageContext)
+  const { UsersService } = useContext(ServicesContext)
   const navigate = useNavigate()
 
+
   const handleIndexFunction = async (page: number) => {
-    return await userService.indexWritesByAuthor(userId, page)
+    return await UsersService.indexWritesByAuthor(userId, page)
   }
 
   const handleRedirect = (isPrompt: boolean, id: number) => {

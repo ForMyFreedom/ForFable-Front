@@ -1,27 +1,25 @@
-import { CommentsController, ProposalEntityWithWrite, ProposalsController, ReactCommentsController, ReactWritesController, UserEntity } from '../../../ForFable-Domain';
+import { ProposalEntityWithWrite, UserEntity } from '../../../ForFable-Domain';
 import WriteDetails from "../../components/write/WriteDetails";
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { toast } from 'react-toastify';
 import { stringifyAppError } from "../../utils/error";
 import { useNavigate } from 'react-router-dom'
 import './Proposal.css'
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface Props {
-    proposalService: ProposalsController
-    reactionsService: ReactWritesController
-    commentService: CommentsController
-    reactCommentService: ReactCommentsController
     proposalId: number
 }
 
-const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactCommentService, reactionsService, commentService }) => {
+const Proposal: React.FC<Props> = ({ proposalId }) => {
     const [proposalUser, setProposalUser] = useState<UserEntity|null>(null)
     const [proposal, setProposal] = useState<ProposalEntityWithWrite|null>(null)
     const navigate = useNavigate()
+  const { ProposalsService, ReactWritesService } = useContext(ServicesContext)
 
     useEffect(()=>{
         const loadUser = async () => {
-            const request = await proposalService.getAuthor(Number(proposalId))
+            const request = await ProposalsService.getAuthor(Number(proposalId))
             if (request.state == 'Failure') {
                 toast.error(stringifyAppError(request))
             } else {
@@ -29,7 +27,7 @@ const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactCommentSe
             }
         }
         const loadProposal = async () => {
-            const request = await proposalService.show(Number(proposalId))
+            const request = await ProposalsService.show(Number(proposalId))
             if (request.state == 'Failure') {
                 toast.error(stringifyAppError(request))
             } else {
@@ -38,7 +36,7 @@ const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactCommentSe
             }
         }
         Promise.all([loadUser(), loadProposal()])
-    },[proposalId, proposalService, reactionsService])
+    },[proposalId, ProposalsService, ReactWritesService])
 
     if(!proposalUser || !proposal) { return <div> Loading... </div> }
 
@@ -51,9 +49,6 @@ const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactCommentSe
             user={proposalUser}
             writeProp={{type: 'Proposal', write: proposal}}
             write={proposal.write}
-            reactWritesService={reactionsService}
-            commentService={commentService}
-            reactCommentService={reactCommentService}
             exibitionText={
                 <div>
                     <p>{proposal.currentHistoryText}

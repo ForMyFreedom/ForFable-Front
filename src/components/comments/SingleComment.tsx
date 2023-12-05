@@ -1,4 +1,4 @@
-import { CommentsWithAnswers, ReactCommentsController, ReactionType, UserEntity, WriteEntity } from '../../../ForFable-Domain';
+import { CommentsWithAnswers, ReactionType, UserEntity, WriteEntity } from '../../../ForFable-Domain';
 import './Comments.css';
 import { NO_USER_IMAGE } from '../../utils/default';
 import Dislike from '../write/components/Dislike';
@@ -14,7 +14,6 @@ import { LanguageContext } from '../../contexts/LanguageContext';
 
 interface Props {
     writeId: WriteEntity['id']
-    reactCommentService: ReactCommentsController
     commentData: CommentsWithAnswers
     appUser: UserEntity|undefined
     user: UserEntity
@@ -22,9 +21,9 @@ interface Props {
     stateRefresher: React.Dispatch<React.SetStateAction<number>>
 }
 
-const SingleComment: React.FC<Props> = ({ writeId, appUser, commentData, user, allUsers, reactCommentService, stateRefresher }) => {
+const SingleComment: React.FC<Props> = ({ writeId, appUser, commentData, user, allUsers, stateRefresher }) => {
   const navigate = useNavigate()
-  const { CommentsService } = useContext(ServicesContext)
+  const { CommentsService, ReactCommentsService } = useContext(ServicesContext)
   const [lang] = useContext(LanguageContext)
 
   const [isResponseOpen, setIsResponseOpen] = useState(false)
@@ -37,7 +36,7 @@ const SingleComment: React.FC<Props> = ({ writeId, appUser, commentData, user, a
   }
 
   const reactToComment = async (commentId: number, reactionType: ReactionType) => {
-    const response = await reactCommentService.store({commentId: commentId, type: reactionType})
+    const response = await ReactCommentsService.store({commentId: commentId, type: reactionType})
     if(response.state === 'Failure'){
         toast.error(stringifyAppError(response))
     } else {
@@ -138,7 +137,6 @@ const SingleComment: React.FC<Props> = ({ writeId, appUser, commentData, user, a
                     <ul className="answer-element" key={answer.id}>
                         <SingleComment
                             writeId={writeId}
-                            reactCommentService={reactCommentService}
                             commentData={answer as CommentsWithAnswers} // @
                             user={user}
                             allUsers={allUsers}

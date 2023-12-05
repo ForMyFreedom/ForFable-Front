@@ -2,17 +2,18 @@ import Paginator from '../paginator/Paginator';
 import './UsersList.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
-import { UserEntity, UsersController } from '../../../ForFable-Domain';
+import { UserEntity } from '../../../ForFable-Domain';
 import { NO_USER_IMAGE } from '../../../src/utils/default';
 import { LanguageContext } from '../../contexts/LanguageContext';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface UserProps {
-  userService: UsersController
 }
 
-const UsersList: React.FC<UserProps> = ({ userService }) => {
+const UsersList: React.FC<UserProps> = () => {
   const navigate = useNavigate();
   const [lang] = useContext(LanguageContext)
+  const { UsersService } = useContext(ServicesContext)
 
   const gotoSelected = (id: number) => {
     window.scrollTo(0, 0)
@@ -24,7 +25,7 @@ const UsersList: React.FC<UserProps> = ({ userService }) => {
         <Paginator<UserEntity>
           title={<h1 className='user-list-header'>{lang.ListOfUsers}</h1>}
           noDataMessage=''
-          indexFunction={async (page: number) => await userService.index(page)}
+          indexFunction={async (page: number) => await UsersService.index(page)}
           renderAll={(userList) => (
             <div className='grid--user-list'>
             {!userList ?

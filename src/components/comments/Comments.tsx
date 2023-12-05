@@ -1,27 +1,28 @@
 import { useContext, useState } from 'react';
-import { CommentsController, CommentsWithAnswers, ReactCommentsController, UserEntity, WriteEntity } from '../../../ForFable-Domain';
+import { CommentsWithAnswers, UserEntity, WriteEntity } from '../../../ForFable-Domain';
 import './Comments.css';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import Paginator from '../paginator/Paginator';
 import SingleComment from './SingleComment';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface CommentsProps {
   appUser: UserEntity|undefined
   writeId: WriteEntity['id']
-  commentService: CommentsController
-  reactCommentService: ReactCommentsController
 }
 
-const Comments: React.FC<CommentsProps> = ({ appUser, writeId, commentService, reactCommentService }) => {
+const Comments: React.FC<CommentsProps> = ({ appUser, writeId }) => {
   const [lang] = useContext(LanguageContext)
   const [amountOfComments, setAmountOfComments] = useState<number>(0)
   const [,stateRefresher] = useState<number>(0)
+
+  const { CommentsService } = useContext(ServicesContext)
 
   return (
     <div className="comments">
       <Paginator<CommentsWithAnswers, { users: UserEntity[] }>
           indexFunction={async(page: number) => {
-            const response = await commentService.indexByWrite(writeId, page)
+            const response = await CommentsService.indexByWrite(writeId, page)
             if(response.state=='Sucess'){
               setAmountOfComments(response.data.all.length)
               response.data.all = response.data.all.sort((a, b) => b.id - a.id)
@@ -38,7 +39,6 @@ const Comments: React.FC<CommentsProps> = ({ appUser, writeId, commentService, r
                   return (
                     <SingleComment
                       writeId={writeId}
-                      reactCommentService={reactCommentService}
                       commentData={comment}
                       user={user}
                       allUsers={allComments.users}

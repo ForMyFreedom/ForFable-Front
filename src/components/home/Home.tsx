@@ -8,26 +8,26 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ConstantsContext } from '../../../src/contexts/ConstantsContext';
 import { useEffect } from 'react';
-import { ConstantsController } from '../../../ForFable-Domain';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface NavbarProps {
-  constantsService : ConstantsController
 }
 
-const Home: React.FC<NavbarProps> = ({ constantsService }) => {
+const Home: React.FC<NavbarProps> = () => {
   const [userData,] = useContext(UserContext)
   const [, setConstants] = useContext(ConstantsContext)
+  const { ConstantsService } = useContext(ServicesContext)
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await constantsService.show()
+      const response = await ConstantsService.show()
       if(response.state == 'Sucess'){
         setConstants(response.data)
       }
     }
     
     fetchUserData()
-  }, [setConstants, constantsService])
+  }, [setConstants, ConstantsService])
 
 
   return (

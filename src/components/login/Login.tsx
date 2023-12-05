@@ -1,24 +1,25 @@
-import { LoginUsecase } from '../../../ForFable-Domain';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { toast } from 'react-toastify';
 import { LanguageContext } from '../../contexts/LanguageContext';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface LoginProps {
-  loginService: LoginUsecase
 }
 
-const Login: React.FC<LoginProps> = ({ loginService }) => {
+const Login: React.FC<LoginProps> = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [_user, setUser] = useContext(UserContext)
+  const { LoginService } = useContext(ServicesContext)
+
   const nav = useNavigate()
   const [lang] = useContext(LanguageContext)
 
   const tryLogin = async () => {
-    const response = await loginService.loginByCredential(username, password)
+    const response = await LoginService.loginByCredential(username, password)
     if(response.state == 'Sucess'){
       setUser(response.data)
       localStorage.setItem('user', JSON.stringify(response.data))

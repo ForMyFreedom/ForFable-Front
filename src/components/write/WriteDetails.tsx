@@ -1,4 +1,4 @@
-import { ApiResponse, CleanReactionResponse, CommentsController, PromptEntity, ProposalEntity, ReactCommentsController, ReactWritesController, ReactionType, UserEntity, WriteEntity, WriteReactionEntity } from '../../../ForFable-Domain';
+import { ApiResponse, CleanReactionResponse, PromptEntity, ProposalEntity, ReactionType, UserEntity, WriteEntity, WriteReactionEntity } from '../../../ForFable-Domain';
 import './WriteDetails.css';
 import { NO_USER_IMAGE } from '../../utils/default';
 import { useMemo, useState, useEffect, useContext, ReactNode } from 'react'
@@ -12,6 +12,7 @@ import { getColorForReactionIcon } from './components/definitions';
 import Complaint from './components/Complaint';
 import { UserContext } from '../../contexts/UserContext';
 import InsertComment from '../comments/InsertComment';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 
 type Prompt = {type: 'Prompt', write: PromptEntity}
@@ -21,22 +22,21 @@ interface Props {
     user: UserEntity
     writeProp: Prompt|Proposal
     write: WriteEntity // Tirar?
-    reactWritesService: ReactWritesController
-    reactCommentService: ReactCommentsController
-    commentService: CommentsController
     exibitionText: ReactNode
 }
 
-const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, reactCommentService, commentService, exibitionText}) => {
+const WriteDetails: React.FC<Props> = ({ user, writeProp, exibitionText}) => {
   const { type, write: promposal } = writeProp
   const [appUser,] = useContext(UserContext)
+  const { ReactWritesService } = useContext(ServicesContext)
+
   const navigate = useNavigate()
   const [reactionsResponse, setReactionsResponse] = useState<CleanReactionResponse>({reactions: [], userReaction: null})
   const [, setReload] = useState(0)
 
   useEffect(()=>{
       const loadReactions = async () => {
-          const request = await reactWritesService.show(Number(promposal.writeId))
+          const request = await ReactWritesService.show(Number(promposal.writeId))
           if (request.state == 'Failure') {
               toast.error(stringifyAppError(request))
           } else {
@@ -44,7 +44,7 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, re
           }
       }
       loadReactions()
-  },[reactWritesService, promposal.writeId])
+  },[ReactWritesService, promposal.writeId])
 
   const positiveReactionAmount = useMemo(()=> {
     return reactionsResponse.reactions.filter(r => r.type === 'POSITIVE').length
@@ -83,14 +83,14 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, re
       type = type == ReactionType.POSITIVE ? ReactionType.CONCLUSIVE : ReactionType.POSITIVE
     }
     if(reactionsResponse.userReaction != type) {
-      response = await reactWritesService.store({type: type, writeId: promposal.writeId})
+      response = await ReactWritesService.store({type: type, writeId: promposal.writeId})
     } else {
-      response = await reactWritesService.destroy(Number(promposal.writeId))
+      response = await ReactWritesService.destroy(Number(promposal.writeId))
     }
     if(response.state == 'Failure') {
       toast.warning(stringifyAppError(response))
     } else {
-      const newResponse = await reactWritesService.show(Number(promposal.writeId))
+      const newResponse = await ReactWritesService.show(Number(promposal.writeId))
       if(newResponse.state == 'Sucess') {
         setReactionsResponse(newResponse.data)
       } else {
@@ -154,8 +154,6 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, re
         <Comments
           appUser={appUser as UserEntity}
           writeId={promposal.writeId}
-          commentService={commentService}
-          reactCommentService={reactCommentService}
         />
     </div>
   )

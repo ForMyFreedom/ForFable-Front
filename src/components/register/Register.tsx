@@ -1,20 +1,20 @@
 import { UserContext } from '../../contexts/UserContext';
-import { UserInsert, UsersController, LoginController } from '../../../ForFable-Domain';
+import { UserInsert } from '../../../ForFable-Domain';
 import './Register.css'
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { DateTime } from 'luxon';
 import { LanguageContext } from '../../contexts/LanguageContext';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 interface LoginProps {
-  userService: UsersController
-  loginService: LoginController
 }
 
-const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
+const Register: React.FC<LoginProps> = () => {
   const navigate = useNavigate()
   const [lang] = useContext(LanguageContext)
+  const { UsersService, LoginService } = useContext(ServicesContext)
 
   const [, setUser] = useContext(UserContext)
   const [registerUser, setRegisterUser] = useState<UserInsert>(
@@ -22,7 +22,7 @@ const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
   )
   
   const register = async () => {
-    const response = await userService.storeUser(registerUser)
+    const response = await UsersService.storeUser(registerUser)
     if (response.state == 'Failure' && typeof response.error === 'object') {
       for (const key of Object.keys(response.error)) {
         toast.error(response.error[key as keyof typeof response.error][0], { className: 'capitalize' })
@@ -30,7 +30,7 @@ const Register: React.FC<LoginProps> = ({ userService, loginService }) => {
     } else {
       toast.success(lang.UserCreatedSuccessfully)
       if (response.state == 'Sucess') {
-        const logged = await loginService.loginByCredential(registerUser.email, registerUser.password)
+        const logged = await LoginService.loginByCredential(registerUser.email, registerUser.password)
         if(logged.state == 'Sucess'){
           setUser(logged.data)
           localStorage.setItem('user', JSON.stringify(logged.data))

@@ -3,7 +3,7 @@ import './UserCard.css';
 import ColorPickers from './components/color-pickers/ColorPickers';
 import ChangeNameModal from './components/change-name-modal/ChangeNameModal';
 import { ReactDuo } from '../../../../utils/react';
-import { ImagesController, UserEntity, UsersController } from '../../../../../ForFable-Domain';
+import { UserEntity } from '../../../../../ForFable-Domain';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../../contexts/UserContext';
 import { toast } from 'react-toastify';
@@ -12,20 +12,21 @@ import { ConstantsContext } from '../../../../../src/contexts/ConstantsContext';
 import { NO_USER_IMAGE } from '../../../../../src/utils/default';
 import LoadingSpinner from '../../../../../src/components/utils/LoadingSpinner';
 import { LanguageContext } from '../../../../contexts/LanguageContext';
+import { ServicesContext } from 'src/contexts/ServicesContext';
 
 
 interface UserCardProps {
-  userService: UsersController
-  imageService: ImagesController
   userDuo: ReactDuo<UserEntity>
   isUser: boolean;
 }
 
 
-const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService, imageService }) => {
+const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser }) => {
   const navigate = useNavigate()
   const [user, setUser] = userDuo
   const [,setUserContext] = useContext(UserContext)
+  const { ImageService, UsersService } = useContext(ServicesContext)
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const nameModalOpenDuo = useState(false);
   const nickNameModalOpenDuo = useState(false);
@@ -41,7 +42,7 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService, image
     setIsImageLoading(true)
     const file = event.target.files?.[0];
     if (file) {
-      const response = await imageService.updateUserImage(await CompressOrNot(
+      const response = await ImageService.updateUserImage(await CompressOrNot(
         user, file, constants?.maxImageBythesByNonPremium || 2000
       ))
       if(response.state=='Sucess'){
@@ -76,7 +77,7 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService, image
     if (showColorPickers) {
       if(primaryColorData[0] !== user.primaryColorHex || secondaryColorData[0] !== user.secondaryColorHex){
         const updateColorBody = { primaryColorHex: primaryColorData[0], secondaryColorHex: secondaryColorData[0] }
-        await userService.update(user.id, updateColorBody)
+        await UsersService.update(user.id, updateColorBody)
       }
     }
     setShowColorPickers(!showColorPickers);
@@ -182,8 +183,8 @@ const UserCard: React.FC<UserCardProps> = ({ userDuo, isUser, userService, image
         </div>
       </div>
       {showColorPickers ? <ColorPickers primaryColorData={primaryColorData} secondaryColorData={secondaryColorData} /> : ''}
-      <ChangeNameModal propKey='name' titleText={lang.ChangeName} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nameModalOpenDuo} userService={userService}/>
-      <ChangeNameModal propKey='nickname' titleText={lang.ChangeNickname} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nickNameModalOpenDuo} userService={userService}/>
+      <ChangeNameModal propKey='name' titleText={lang.ChangeName} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nameModalOpenDuo} />
+      <ChangeNameModal propKey='nickname' titleText={lang.ChangeNickname} className="change-name-modal" userDuo={userDuo} modalOpenDuo={nickNameModalOpenDuo} />
     </div>
   );
 };
