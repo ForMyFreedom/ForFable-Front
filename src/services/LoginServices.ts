@@ -8,7 +8,6 @@ export class LoginServices implements LoginController {
         )
         if(response.state == 'Sucess') {
             const user = response.data
-            console.log(response)
             localStorage.setItem('user', JSON.stringify(user))
             return { state: 'Sucess', message: 'SuccessfullyAuthenticated', data: user }
         } else {
