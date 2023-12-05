@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { useContext } from 'react'
 import Paginator from '../../../../components/paginator/Paginator';
 import { LanguageContext } from '../../../../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 interface UserInteractionsProps {
   userId: number;
@@ -12,6 +13,7 @@ interface UserInteractionsProps {
 
 const UserInteractions: React.FC<UserInteractionsProps> = ({ userId, userService }) => {
   const [lang] = useContext(LanguageContext)
+  const navigate = useNavigate()
 
   const handleIndexFunction = async (page: number) => {
     return await userService.indexWritesByAuthor(userId, page)
@@ -19,9 +21,9 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ userId, userService
 
   const handleRedirect = (isPrompt: boolean, id: number) => {
     if (isPrompt) {
-      window.location.href = `/prompt/${id}`
+      navigate(`/prompt/${id}`)
     } else {
-      window.location.href = `/proposal/${id}`
+      navigate(`/proposal/${id}`)
     }
   }
 
@@ -42,7 +44,7 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ userId, userService
                   {isPrompt ?
                     <h3>{`${lang.Prompt} '${'title' in interaction && interaction?.title || ''}'`}</h3>
                     :
-                    <h3>{`${lang.ProposalInPrompt} '${'promptId' in interaction && interaction?.promptId || ''}'`}</h3>
+                    <h3>{`${lang.ProposalInPrompt} '${interaction.promptName}'`}</h3>
                   }
                   <div className='interaction-info'>
                     <p>{`${lang.Popularity}: ${interaction.popularity*10}`}</p>

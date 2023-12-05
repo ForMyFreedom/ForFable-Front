@@ -63,10 +63,22 @@ button:focus-visible {
   height: 6rem;
   margin-bottom: 1rem;
   border-radius: 50%;
-  overflow: hidden;
+  overflow: clip;
   border: 1px solid #000000;
   object-fit:contain;
   cursor: pointer;
+}
+
+.inline {
+  display: inline;
+}
+
+.ml-5{
+  margin-left: 5rem;
+}
+
+.ml-2{
+  margin-left: 2rem;
 }
 
 .small-image-portrait {
@@ -85,7 +97,10 @@ button:focus-visible {
 .flex-row{
   display: flex;
   flex-direction: row;
+}
 
+.full-width {
+  width: 100% !important;
 }
 
 .tooltip .tooltiptext {

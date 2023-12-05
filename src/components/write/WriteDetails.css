@@ -1,5 +1,6 @@
 .page--write-details{
   display: flex;
+  width: fit-content;
   padding-left: 5rem;
   padding-top: 3rem;
   flex-direction: column;
@@ -9,6 +10,10 @@
   font-size: 4rem;
   margin-top: 3rem;
   cursor: pointer;
+}
+
+.definitive-proposal--write {
+  align-self: flex-end;
 }
 
 .denunciate {

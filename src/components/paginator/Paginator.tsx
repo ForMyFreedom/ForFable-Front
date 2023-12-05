@@ -19,7 +19,6 @@ function Paginator<T extends object, Group extends object = object>({ indexFunct
 
     useEffect(() => {
         const loadUser = async () => {
-            setAllData(undefined)
             const response = await indexFunction(currentPage)
             if (response.state == 'Sucess') {
                 setAllData(response.data)

@@ -1,7 +1,7 @@
-import { ApiResponse, CleanReactionResponse, CommentsController, PromptEntity, ProposalEntity, ReactWritesController, ReactionType, UserEntity, WriteEntity, WriteReactionEntity } from '../../../ForFable-Domain';
+import { ApiResponse, CleanReactionResponse, CommentsController, PromptEntity, ProposalEntity, ReactCommentsController, ReactWritesController, ReactionType, UserEntity, WriteEntity, WriteReactionEntity } from '../../../ForFable-Domain';
 import './WriteDetails.css';
 import { NO_USER_IMAGE } from '../../utils/default';
-import { useMemo, useState, useEffect, ReactNode } from 'react'
+import { useMemo, useState, useEffect, useContext, ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { stringifyAppError } from '../../utils/error';
@@ -10,6 +10,8 @@ import Like from './components/Like';
 import Dislike from './components/Dislike';
 import { getColorForReactionIcon } from './components/definitions';
 import Complaint from './components/Complaint';
+import { UserContext } from '../../contexts/UserContext';
+import InsertComment from '../comments/InsertComment';
 
 
 type Prompt = {type: 'Prompt', write: PromptEntity}
@@ -20,14 +22,17 @@ interface Props {
     writeProp: Prompt|Proposal
     write: WriteEntity // Tirar?
     reactWritesService: ReactWritesController
+    reactCommentService: ReactCommentsController
     commentService: CommentsController
     exibitionText: ReactNode
 }
 
-const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, commentService, exibitionText}) => {
+const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, reactCommentService, commentService, exibitionText}) => {
   const { type, write: promposal } = writeProp
+  const [appUser,] = useContext(UserContext)
   const navigate = useNavigate()
   const [reactionsResponse, setReactionsResponse] = useState<CleanReactionResponse>({reactions: [], userReaction: null})
+  const [, setReload] = useState(0)
 
   useEffect(()=>{
       const loadReactions = async () => {
@@ -98,7 +103,7 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, co
     <div className='page--write-details'>
       <div className='flex-row'>
         <i className="fa-solid fa-caret-left return-icon--write-details" onClick={returnPage}/>
-        <div className='details--write-details'>
+        <div className='details--write-details full-width'>
             <div className='info--write-details'>
                 <img className='image-portrait pointer' onClick={gotoAuthor} src={user.imageUrl || NO_USER_IMAGE}/>
                 <h2 className='author-name--write-details' onClick={gotoAuthor}>Autor: {user.name}</h2>
@@ -131,14 +136,26 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, reactWritesService, co
                   />
                 </div>
             </div>
+            {type=='Proposal' && promposal.definitive &&
+              <i className='definitive-proposal--write'>Proposta Definitiva</i>
+            }
             <div className='text--write-details'>
               {exibitionText}
             </div>
         </div>
       </div>
+        {appUser &&
+          <InsertComment
+            writeId={promposal.writeId} answerToId={null} user={appUser}
+            reloadComments={()=>setReload(prev=>prev+1)}
+            setIsResponseOpen={()=>{}}
+          />
+        }
         <Comments
+          appUser={appUser as UserEntity}
           writeId={promposal.writeId}
           commentService={commentService}
+          reactCommentService={reactCommentService}
         />
     </div>
   )

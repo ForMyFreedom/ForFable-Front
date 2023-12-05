@@ -10,9 +10,20 @@
 
 .data--comment {
     margin-left: 1rem;
+    width: 100%;
+}
+
+.data--comment2 {
+    margin-left: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
 }
 
 .commenter-name{
+    display: inline;
     font-weight: bold;
     font-size: 1.3rem;
     margin-top: 0.2rem;
@@ -20,8 +31,9 @@
 }
 
 .text--comment {
-    margin-top: 0.5rem;
+    margin-top: 0;
     margin-bottom: 0;
+    font-size: 17px;
 }
 
 .actions--comment{
@@ -35,8 +47,13 @@
     margin-top: 0rem;
 }
 
+.insert-comment {
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+
 .actions--comment p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-left: 0.5rem;
     margin-top: 0 !important;
 }
@@ -44,6 +61,51 @@
 .actions--comment div {
     align-items: baseline !important;
 }
+
+.textarea--comment{
+    width: calc(100% - 1.5rem);
+    border: 1px solid #ccc;
+    text-align: start;
+    margin-bottom: 0rem;
+    resize: none;
+    word-wrap: break-word;
+    font-size: 1rem;
+}
+
+.not-focused {
+    height: 1.2rem;
+}
+
+.comment--input{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.emoji-picker-container {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    left: 50%
+}
+
+.group-actions--insert-comment{
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+.group-actions--insert-comment button{
+    padding: 0.5rem 1rem;
+}
+
+.focused {
+    height: 3rem;
+}
+
+.i-button {
+    pointer-events: none;
+  }
 
 .comment-element {
     text-align: left;
@@ -57,6 +119,10 @@
 
 .info--comment{
     display: flex;
+}
+
+.image--comment{
+    margin-left: 5rem;
 }
 
 .answer-element{

@@ -11,8 +11,7 @@ interface Props {
 const Complaint: React.FC<Props> = ({ react, userReaction }) => {
   return (
     <div style={{display:'flex', alignItems: 'center'}}>
-      <p onClick={()=>react(ReactionType.COMPLAINT)}
-        className='denunciate'
+      <p className='pointer' onClick={()=>react(ReactionType.COMPLAINT)}
         style={{color: getColorForReactionIcon(userReaction, ReactionType.COMPLAINT, 'red')}}
       >{userReaction==ReactionType.COMPLAINT ? 'Denunciado' : 'Denunciar'}</p>
     </div>

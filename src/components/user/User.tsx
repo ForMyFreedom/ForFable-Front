@@ -19,7 +19,7 @@ const User: React.FC<UserProps> = ({userDuo, searchUserId, userService, imageSer
   const [searchUser, setSearchUser] = searchUserDuo
   const [lang] = useContext(LanguageContext)
 
-  const isUser = searchUserId ? userData?.user.id === Number(searchUserId) : false
+  const isUser = searchUserId ? userData?.id === Number(searchUserId) : false
 
   useEffect(() => {
     const loadUser = async () => {
@@ -35,7 +35,7 @@ const User: React.FC<UserProps> = ({userDuo, searchUserId, userService, imageSer
 
   return (
     <div className='block'>
-      <UserCard userService={userService} imageService={imageService} userDuo={searchUserDuo as ReactDuo<UserEntity>} isUser={isUser}/>
+      <UserCard userService={userService} imageService={imageService} userDuo={(searchUserDuo[0]?.id == userData?.id ? userDuo : searchUserDuo) as ReactDuo<UserEntity>} isUser={isUser}/>
       <UserInteractions userId={searchUser.id} userService={userService} />
     </div>
   );

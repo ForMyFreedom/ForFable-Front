@@ -35,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ userData }) => {
               <Link onClick={unset} className='regular-option' to="/search">{lang.Search}</Link>
               <Link onClick={unset} className='regular-option' to="/users">{lang.Others}</Link>
               {userData ?
-              <Link onClick={unset} className='regular-option' to={`/user/${userData?.user.id}`}>{lang.User}</Link>
+              <Link onClick={unset} className='regular-option' to={`/user/${userData.id}`}>{lang.User}</Link>
               :
               <Link onClick={unset} className='regular-option' to="/login">{lang.Login}</Link>
               }

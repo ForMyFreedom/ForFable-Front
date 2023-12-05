@@ -46,7 +46,7 @@ export const ptBR: LanguageContract = {
     CheckYourEmailToVerifyAccount: "Entre em seu email para verificar a conta",
     NotVerified: "Não verificado",
     NoComments: "Nenhum Comentário",
-    Comments: "Comentários",
+    Comments: "Comentário(s)",
     Like: "Like",
     Dislike: "Dislike",
     Denunciate: "Denunciar",

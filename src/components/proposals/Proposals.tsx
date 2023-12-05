@@ -1,4 +1,4 @@
-import { CommentsController, ProposalEntityWithWrite, ProposalsController, ReactWritesController, UserEntity } from '../../../ForFable-Domain';
+import { CommentsController, ProposalEntityWithWrite, ProposalsController, ReactCommentsController, ReactWritesController, UserEntity } from '../../../ForFable-Domain';
 import WriteDetails from "../../components/write/WriteDetails";
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
@@ -10,10 +10,11 @@ interface Props {
     proposalService: ProposalsController
     reactionsService: ReactWritesController
     commentService: CommentsController
+    reactCommentService: ReactCommentsController
     proposalId: number
 }
 
-const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactionsService, commentService }) => {
+const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactCommentService, reactionsService, commentService }) => {
     const [proposalUser, setProposalUser] = useState<UserEntity|null>(null)
     const [proposal, setProposal] = useState<ProposalEntityWithWrite|null>(null)
     const navigate = useNavigate()
@@ -52,6 +53,7 @@ const Proposal: React.FC<Props> = ({ proposalId, proposalService, reactionsServi
             write={proposal.write}
             reactWritesService={reactionsService}
             commentService={commentService}
+            reactCommentService={reactCommentService}
             exibitionText={
                 <div>
                     <p>{proposal.currentHistoryText}
