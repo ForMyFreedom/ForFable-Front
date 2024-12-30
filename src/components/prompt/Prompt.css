@@ -1,0 +1,11 @@
+.definitives--prompts {
+    display: flex;
+}
+
+.definitives--prompts p {
+    white-space-collapse: preserve;
+}
+
+.definitives--prompts p:hover{
+    font-weight: bold;
+}

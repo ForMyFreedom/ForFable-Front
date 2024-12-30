@@ -1,4 +1,4 @@
-import { ApiResponse, Pagination, PromptEntity, PromptInsert, GainControlOverDailyPromptInsert, PromptsController } from '../../ForFable-Domain';
+import { ApiResponse, Pagination, PromptEntity, PromptInsert, GainControlOverDailyPromptInsert, PromptsController, PromptEntityWithWrite, UserEntity, PromptTrail } from '../../ForFable-Domain';
 import { requestApi } from "./_Requester";
 
 export class PromptServices implements PromptsController {
@@ -6,8 +6,12 @@ export class PromptServices implements PromptsController {
     return await requestApi('/prompt', 'GET', undefined)
   }
 
-  async show(promptId: PromptEntity['id']): Promise<ApiResponse<PromptEntity>>{
+  async show(promptId: PromptEntity['id']): Promise<ApiResponse<PromptEntityWithWrite>>{
     return await requestApi(`/prompt/${promptId}`, 'GET', undefined)
+  }
+
+  async getAuthor(promptId: PromptEntity['id']): Promise<ApiResponse<UserEntity>> {
+    return await requestApi(`/prompt/${promptId}/author`, 'GET', undefined);
   }
 
   async store(body: PromptInsert): Promise<ApiResponse<PromptEntity>> {
@@ -28,5 +32,9 @@ export class PromptServices implements PromptsController {
 
   async indexByAuthor(authorId: number, page?: number | undefined, limit?: number | undefined): Promise<Pagination<PromptEntity>> {
     return await requestApi(`/prompt/author/${authorId}?page=${page}&limit=${limit}`, 'GET', undefined)
+  }
+
+  async trailDefinitives(promptId: number): Promise<ApiResponse<PromptTrail>> {
+    return await requestApi(`/prompt/definitives/${promptId}`, 'GET', undefined)
   }
 }

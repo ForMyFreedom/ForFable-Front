@@ -14,6 +14,7 @@ import HistoryPage from './pages/history/History.tsx'
 import SucessfullyRegisteredPage from './pages/sucessfullyRegisteredPage/SucessfullyRegisteredPage.tsx';
 import { ContantsProvider } from './contexts/ConstantsContext.tsx'
 import { LanguageProvider } from './contexts/LanguageContext.tsx'
+import PromptPage from './pages/prompt/Prompt.tsx'
 const router  = createBrowserRouter([
   {
     path: '/', element: <HomePage/>, errorElement: <ErrorPage/>,
@@ -22,6 +23,7 @@ const router  = createBrowserRouter([
       {path: '/login', element: <LoginPage/>},
       {path: '/register', element: <RegisterPage/>},
       {path: '/user/:id', element: <UserPage/>},
+      {path: '/prompt/:id', element: <PromptPage/>},
       {path: '/proposal/:id', element: <ProposalPage/>},
       {path: '/users', element: <UsersListPage/>},
       {path: '/sucessfully-registered', element: <SucessfullyRegisteredPage/>}

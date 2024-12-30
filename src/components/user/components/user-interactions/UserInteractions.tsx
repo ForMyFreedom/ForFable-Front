@@ -1,4 +1,4 @@
-import { PromptEntityWithWrite, ProposalEntityWithWrite } from '../../../../../ForFable-Domain';
+import { PromptEntityWithWrite, ProposalWithPromptName } from '../../../../../ForFable-Domain';
 import './UserInteractions.css';
 import { DateTime } from 'luxon';
 import { useContext } from 'react'
@@ -31,7 +31,7 @@ const UserInteractions: React.FC<UserInteractionsProps> = ({ userId }) => {
 
   return (
     <div className="user-interaction-card">
-      <Paginator<(ProposalEntityWithWrite | PromptEntityWithWrite)>
+      <Paginator<(ProposalWithPromptName | PromptEntityWithWrite)>
         title={<></>}
         noDataMessage={lang.NoInteractionsYet}
         indexFunction={async (page: number) => { return await handleIndexFunction(page) }}

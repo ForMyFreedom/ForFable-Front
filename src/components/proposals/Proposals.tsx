@@ -1,4 +1,4 @@
-import { ProposalEntityWithWrite, UserEntity } from '../../../ForFable-Domain';
+import { ProposalWithWrite, UserEntity } from '../../../ForFable-Domain';
 import WriteDetails from "../../components/write/WriteDetails";
 import { useState, useEffect, useContext } from 'react'
 import { toast } from 'react-toastify';
@@ -13,7 +13,7 @@ interface Props {
 
 const Proposal: React.FC<Props> = ({ proposalId }) => {
     const [proposalUser, setProposalUser] = useState<UserEntity|null>(null)
-    const [proposal, setProposal] = useState<ProposalEntityWithWrite|null>(null)
+    const [proposal, setProposal] = useState<ProposalWithWrite|null>(null)
     const navigate = useNavigate()
   const { ProposalsService, ReactWritesService } = useContext(ServicesContext)
 
@@ -31,7 +31,6 @@ const Proposal: React.FC<Props> = ({ proposalId }) => {
             if (request.state == 'Failure') {
                 toast.error(stringifyAppError(request))
             } else {
-                request.data.currentHistoryText = 'Era uma vez' // @
                 setProposal(request.data)
             }
         }
