@@ -13,7 +13,7 @@ export async function requestApi<T>(url: string, method: Method, body?: object, 
     if (!isMultiPart) {
         headers['Content-Type'] = 'application/json'
     }
-    if(user) {
+    if(user && user != 'null') {
         headers['Authorization'] = `Bearer ${JSON.parse(user).token}`
     }
 
@@ -24,6 +24,10 @@ export async function requestApi<T>(url: string, method: Method, body?: object, 
     }
     if(body) {
         init.data = body as FormData
+    }
+
+    if (!isMultiPart) {
+        headers['Content-Type'] = 'application/json'
     }
 
     try{
