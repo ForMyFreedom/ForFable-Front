@@ -32,8 +32,9 @@ const Navbar: React.FC<NavbarProps> = ({ userData }) => {
                 <i className="fa-solid fa-bars"></i>
             </button>
             <div id='nav-options' className={`list-regular-options ${showOptions ? 'show' : 'hidden'}`}>
-              <Link onClick={unset} className='regular-option' to="/search">{lang.Search}</Link>
-              <Link onClick={unset} className='regular-option' to="/users">{lang.Others}</Link>
+              {userData ? <Link onClick={unset} className='regular-option' to="/write">{lang.Write}</Link> :null}
+              {userData ? <Link onClick={unset} className='regular-option' to="/search">{lang.Search}</Link> :null}
+              {userData ? <Link onClick={unset} className='regular-option' to="/users">{lang.Others}</Link> :null }
               {userData ?
               <Link onClick={unset} className='regular-option' to={`/user/${userData.id}`}>{lang.User}</Link>
               :
