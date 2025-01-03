@@ -47,15 +47,15 @@ const WriteDetails: React.FC<Props> = ({ user, writeProp, exibitionText}) => {
   },[ReactWritesService, promposal.writeId])
 
   const positiveReactionAmount = useMemo(()=> {
-    return reactionsResponse.reactions.filter(r => r.type === 'POSITIVE').length
+    return reactionsResponse.reactions.filter(r => r.type === 'POSITIVE')[0]?.amount ?? 0
   }, [reactionsResponse.reactions])
 
   const negativeReactionAmount = useMemo(()=> {
-    return reactionsResponse.reactions.filter(r => r.type === 'NEGATIVE').length
+    return reactionsResponse.reactions.filter(r => r.type === 'NEGATIVE')[0]?.amount ?? 0
   }, [reactionsResponse.reactions])
 
   const conclusiveReactionAmount = useMemo(()=> {
-    return reactionsResponse.reactions.filter(r => r.type === 'CONCLUSIVE').length
+    return reactionsResponse.reactions.filter(r => r.type === 'CONCLUSIVE')[0]?.amount ?? 0
   }, [reactionsResponse.reactions])
 
   const returnPage = () => {

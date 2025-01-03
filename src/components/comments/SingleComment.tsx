@@ -31,11 +31,18 @@ const SingleComment: React.FC<Props> = ({ writeId, appUser, commentData, user, a
 
   const reactionToThatComment = commentData.reactions.find(r => r.userId === appUser?.id)?.type
 
+
   function gotoUser(id: number){
     navigate(`/user/${id}`)
   }
 
   const reactToComment = async (commentId: number, reactionType: ReactionType) => {
+    const currentReaction = commentData.reactions.find(r => r.userId === appUser?.id)
+    if(currentReaction && currentReaction.type === reactionType){
+        await ReactCommentsService.destroy(commentId)
+        stateRefresher(prev=>prev+1)
+        return
+    }
     const response = await ReactCommentsService.store({commentId: commentId, type: reactionType})
     if(response.state === 'Failure'){
         toast.error(stringifyAppError(response))
