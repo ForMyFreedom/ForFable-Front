@@ -5,10 +5,13 @@ export interface LanguageContract {
     NoComments: string;
     Password: string;
     Enter: string;
+    CreatePrompt: string;
     Comments: string;
     ForgotMyPassword: string;
     Register: string;
     Search: string;
+    Write: string;
+    Submit: string;
     Others: string;
     User: string;
     Login: string;
@@ -48,4 +51,10 @@ export interface LanguageContract {
     Like: string;
     Dislike: string;
     Denunciate: string;
+    PromptCreatedSuccessfully: string;
+    Title: string;
+    MaxSizePerExtension: string;
+    Text: string;
+    LimitOfExtensions: string;
+    TimeForAvanceInMinutes: string;
 }
