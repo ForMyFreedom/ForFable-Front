@@ -15,6 +15,8 @@ import SucessfullyRegisteredPage from './pages/sucessfullyRegisteredPage/Sucessf
 import { ContantsProvider } from './contexts/ConstantsContext.tsx'
 import { LanguageProvider } from './contexts/LanguageContext.tsx'
 import PromptPage from './pages/prompt/Prompt.tsx'
+import ToWritePromptPage from './pages/write/Write.tsx'
+
 const router  = createBrowserRouter([
   {
     path: '/', element: <HomePage/>, errorElement: <ErrorPage/>,
@@ -24,6 +26,7 @@ const router  = createBrowserRouter([
       {path: '/register', element: <RegisterPage/>},
       {path: '/user/:id', element: <UserPage/>},
       {path: '/prompt/:id', element: <PromptPage/>},
+      {path: '/write', element: <ToWritePromptPage/>},
       {path: '/proposal/:id', element: <ProposalPage/>},
       {path: '/users', element: <UsersListPage/>},
       {path: '/sucessfully-registered', element: <SucessfullyRegisteredPage/>}
