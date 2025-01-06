@@ -23,9 +23,9 @@ const Register: React.FC<LoginProps> = () => {
   
   const register = async () => {
     const response = await UsersService.storeUser(registerUser)
-    if (response.state == 'Failure' && typeof response.error === 'object') {
-      for (const key of Object.keys(response.error)) {
-        toast.error(response.error[key as keyof typeof response.error][0], { className: 'capitalize' })
+    if (response.state == 'Failure') {
+      for(const key of Object.keys(response.data)){
+        toast.error(response.data[key as keyof typeof response.data][0], { className: 'capitalize' })
       }
     } else {
       toast.success(lang.UserCreatedSuccessfully)
